@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
 
     if (!token) {
         return res.status(401).json({
-            message: "Not authorised to view.",
+            message: "Not authorised.",
         }) //not authorized to view this
     }
 
