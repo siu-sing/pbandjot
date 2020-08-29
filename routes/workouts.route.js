@@ -27,7 +27,7 @@ router.post('/', hasToken, async (req, res) => {
             prescribed_female,
             owner,
         });
-        
+
         await workout.save();
 
         res.status(201).json({
@@ -41,7 +41,7 @@ router.post('/', hasToken, async (req, res) => {
 });
 
 //GET ALL WORKOUTS - workouts "/" public access
-router.get("/", async (req,res) =>{
+router.get("/", async (req, res) => {
     try {
         let workouts = await Workout.find()
         res.status(200).json({
@@ -55,5 +55,19 @@ router.get("/", async (req,res) =>{
     }
 });
 
-//GET ONE WORKOUT
+//GET ONE WORKOUT - workouts "/:id" public access
+router.get("/:id", async (req, res) => {
+    try {
+        let workout = await Workout.findById(req.params.id)
+        res.status(200).json({
+            workout
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Unable to get workout."
+        })
+    }
+});
+
+
 module.exports = router;
