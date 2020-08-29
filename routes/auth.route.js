@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const hasToken = require("../config/config.js");
 
-
+//Register
 router.post('/register', async (req, res) => {
     let {
         firstname,
@@ -55,6 +55,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
+//Login
 router.post("/login", async (req, res) => {
     let {
         username,
@@ -101,6 +102,21 @@ router.post("/login", async (req, res) => {
         res.status(500).json({
             message: "Error on login."
         })
+    }
+});
+
+//To get user details with token
+router.get("/user", hasToken, async (req, res) => {
+    try {
+        let user = await User.findById(req.user.id, "-password")
+        //Return user object
+        res.status(200).json({
+            user
+        })      
+    } catch (error) {
+        res.status(500).json({
+            message: "Unable to find user."
+        })          
     }
 });
 
