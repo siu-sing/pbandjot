@@ -12,6 +12,8 @@ import Navigation from './components/Navigation';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Axios from 'axios';
+import { useEffect } from 'react';
+import { decode } from "jsonwebtoken";
 const URL = process.env.REACT_APP_URL;
 
 
@@ -21,17 +23,50 @@ function App() {
     const [errorMessage, setErrorMessage] = useState("");
     const [user, setUser] = useState(null);
 
+    let getUserProfile = (token) => {
+        // console.log(`TOKEN??:: ${token}`)
+        //AXIOS GET , return user details
+        Axios.get(`${URL}/auth/user`, { headers: { "x-auth-token": token } })
+            .then((res) => {
+                setIsAuth(true);
+                setUser(res.data.user);
+                console.log(res.data.user);
+            }).catch((err)=> {
+                console.log(err.response.data.message)
+            })
+
+
+    }
+
     let loginHandler = (credentials) => {
         Axios.post(`${URL}/auth/login`, credentials)
             .then((res) => {
                 console.log(res.data)
                 localStorage.setItem("token", res.data.token)
+                getUserProfile(res.data.token);
                 setIsAuth(true);
             })
             .catch((err) => {
-                console.log(err.response.data.message);
+                console.log(err);
             })
     }
+
+    useEffect(
+        ()=>{
+            let token = localStorage.getItem("token");
+            console.log(token)
+            if(!(token==null)) {
+                //Get user profile each time page reloads
+                let decodedToken = decode(token);
+                if(!decodedToken){
+                    localStorage.removeItem("token");
+                } else {
+                    getUserProfile(token);
+                }
+            }
+        },[]
+    );
+
 
     return (
         <div
@@ -49,14 +84,14 @@ function App() {
                                 <Workouts />
                             </Route>
                             <Route path="/" exact>
-                                <Home />
+                                <Home user={user} />
                             </Route>
                             <Route path="/register" exact>
                                 <Register />
                             </Route>
                             <Route path="/login" exact>
                                 {
-                                    isAuth ? <Home />
+                                    isAuth ? <Home user={user} />
                                         : <Login
                                             loginHandler={loginHandler}
                                         />

@@ -21,7 +21,7 @@ export default function Login(props) {
         e.preventDefault()
         //AXIOS post to login
         console.log("login clicked")
-        console.log(credentials)
+        // console.log(credentials)
         props.loginHandler(credentials);
     }
 
