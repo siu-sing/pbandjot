@@ -33,7 +33,11 @@ const userSchema = new mongoose.Schema({
         home_gym: String,
         date_of_birth: Date,
         profile_image_path: String
-    }
+    },
+    favourite_workouts:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Workout"
+    }]
 }, {
     timestamps: true
 });

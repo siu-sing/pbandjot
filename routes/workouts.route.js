@@ -1,7 +1,5 @@
 const router = require("express").Router();
 const Workout = require("../model/workout.model")
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const hasToken = require("../config/config.js");
 
 //CREATE WORKOUT - private access
@@ -14,8 +12,6 @@ router.post('/', hasToken, async (req, res) => {
         prescribed_female,
     } = req.body
     let owner = req.user.id;
-    console.log(req.body);
-    console.log(req.user.id);
 
     try {
 

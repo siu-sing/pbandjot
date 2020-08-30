@@ -13,6 +13,7 @@ app.use(cors()); //Allow cross origin requests
 // app.use("/api/items", require("./routes/item.route"));
 app.use("/api/auth", require("./routes/auth.route"));
 app.use("/api/workouts", require("./routes/workouts.route"));
+app.use("/api/records", require("./routes/records.route"));
 
 
 //Catch 404 Errors
