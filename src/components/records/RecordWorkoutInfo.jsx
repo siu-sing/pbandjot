@@ -32,18 +32,34 @@ export default function WorkoutInfo(props) {
                     if (pbtime > totalTime) {
                         pbtime = totalTime
                     }
-                    pb = `${Math.floor(pbtime/60)}:${(pbtime%60).toString().padStart(2,'0')}`
+                    pb = `${Math.floor(pbtime / 60)}:${(pbtime % 60).toString().padStart(2, '0')}`
                 })
                 break;
             default:
                 break;
         }
     }
+    let compareRecords = (a,b) => {
+        if(a.pb_date>b.pb_date){
+            return -1;
+        } else if (a.pb_date < b.pb_date) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    records.sort(compareRecords);
+    //SORT RECORDS BY TIME
+    //Sort helper function
+    
 
 
     let recordsDisplay = (
         records.map(r => (
-            <RecordDisplay record={r} />
+            <RecordDisplay
+                workout={props.workout}
+                record={r}
+            />
         ))
     )
 

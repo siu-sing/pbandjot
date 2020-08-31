@@ -21,7 +21,6 @@ export default function Workouts() {
     }
 
     //DISPLAY LIST OF WORKOUTS (SORTED BY LAST ENTERED), INCLUSIVE OF THOSE WITHOUT RECORDS AT THE TAIL
-
     //TRANSFORM FOR DISPLAY
     useEffect(
         () => {
@@ -68,10 +67,6 @@ export default function Workouts() {
 
     //Sort helper functions
     let compareRecords = (a, b) => {
-        //a less than b return -1
-        //a more than b return 1
-        //equal return 0
-
         //IF BOTH WORKOUT HAS RECORDS
         if (a.records.length > 0 && b.records.length > 0) {
             let latestDateA = getLatestRecordDate(a.records);
@@ -104,7 +99,6 @@ export default function Workouts() {
         })
         return latestDate
     }
-
 
     return (
         <div>
