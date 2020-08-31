@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import SideBar from './SideBar'
-import LogoDisplay from './LogoDisplay';
+// import LogoDisplay from './LogoDisplay';
 import { slide as Menu } from 'react-burger-menu'
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 
 
 export default function Navigation() {

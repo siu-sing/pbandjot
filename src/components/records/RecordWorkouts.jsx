@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import seed from '../../data/seed'
 import RecordWorkoutInfo from './RecordWorkoutInfo';
-import { Button, Col } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import Axios from 'axios';
 const URL = process.env.REACT_APP_URL;
 
@@ -53,7 +52,6 @@ export default function Workouts() {
                     })
 
                     //SET STATES UPON FETCHING
-                    console.log(allWorkouts);
                     allWorkouts.sort(compareRecords);
                     setWorkouts(allWorkouts);
                     setFilteredWorkouts(allWorkouts);
@@ -91,7 +89,6 @@ export default function Workouts() {
     }
 
     let getLatestRecordDate = (recArr) => {
-        console.log(recArr)
         let latestDate = recArr[0].pb_date
         //for each record, get 
         recArr.forEach(r => {
@@ -111,7 +108,7 @@ export default function Workouts() {
             {filteredWorkouts ?
                 (
                     filteredWorkouts.map(w => (
-                        <RecordWorkoutInfo workout={w} />
+                        <RecordWorkoutInfo workout={w} key={w._id} />
                     ))
                 )
                 : "STANDBY FOR GAINS"
