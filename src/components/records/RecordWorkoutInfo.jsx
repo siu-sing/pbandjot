@@ -44,20 +44,22 @@ export default function WorkoutInfo(props) {
 
     //STATES FOR WORKOUT PROPS
     const [workout, setWorkout] = useState(props.workout);
-    const [records, setRecords] = useState([]);
-    const [pb, setPb] = useState("");
+    const [records, setRecords] = useState(props.workout.records);
+    const [pb, setPb] = useState(getPb());
 
     let fetchRecords = async () => {
         let token = localStorage.getItem("token");
         let getRes = await Axios.get(`${URL}/records/workouts/${props.workout._id}`,
             { headers: { "x-auth-token": token } });
         setRecords(getRes.data.records);
+        setPb(getPb());
+        console.log(pb)
     }
 
     useEffect(() => {
         fetchRecords();
     }, [])
-    console.log(workout);
+    // console.log(workout);
 
 
     //HANDLE NEW PB INPUT FOR EACH WORKOUT
