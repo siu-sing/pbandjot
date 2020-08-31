@@ -1,19 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Card, Col, Accordion, Row } from 'react-bootstrap'
 import RecordForm from './RecordForm';
 import RecordDisplay from './RecordDisplay';
-
+import Axios from 'axios';
+const URL = process.env.REACT_APP_URL;
 
 export default function WorkoutInfo(props) {
 
-    let { id, workout_name, workout_type, description, prescribed_male, prescribed_female, records } = props.workout;
-    let rxDetail = (
-        <div className="font-italic font-weight-light">M:{prescribed_male}lb F:{prescribed_female}lb</div>
-    )
+    let { _id, workout_name, workout_type, description, prescribed_male, prescribed_female, records } = props.workout;
 
-    //Get PB for each workout
+    //HANDLE NEW PB INPUT FOR EACH WORKOUT
+    let addHandler = async (pb_details) => {
+        console.log("Add button clicked")
+        console.log(pb_details);
+        //AXIOS CALL TO ADD NEW RECORD, USING USER TOKEN
+        let token = localStorage.getItem("token");
+        let postRes = await Axios.post(`${URL}/records`, pb_details, {headers: { "x-auth-token": token } });
+        console.log(postRes)
+
+    }
+
+    //GET AND SET PB FOR EACH WORKOUT
     let pb = "";
-
     if (records.length > 0) {
         switch (workout_type) {
             case "weightlifting":
@@ -39,8 +47,11 @@ export default function WorkoutInfo(props) {
                 break;
         }
     }
-    let compareRecords = (a,b) => {
-        if(a.pb_date>b.pb_date){
+
+    //SORT RECORDS BY TIME
+    //Sort helper function
+    let compareRecords = (a, b) => {
+        if (a.pb_date > b.pb_date) {
             return -1;
         } else if (a.pb_date < b.pb_date) {
             return 1;
@@ -49,16 +60,14 @@ export default function WorkoutInfo(props) {
         }
     }
     records.sort(compareRecords);
-    //SORT RECORDS BY TIME
-    //Sort helper function
-    
 
-
+    //SET DISPLAY OF EACH RECORD
     let recordsDisplay = (
         records.map(r => (
             <RecordDisplay
                 workout={props.workout}
                 record={r}
+                key={r._id}
             />
         ))
     )
@@ -81,7 +90,11 @@ export default function WorkoutInfo(props) {
                     <Accordion.Collapse eventKey="0">
                         <Card.Body className="small__text">
                             <Row className="">
-                                <RecordForm w={workout_type} />
+                                <RecordForm
+                                    workout={props.workout}
+                                    // pbChangeHandler={pbChangeHandler}
+                                    addHandler={addHandler}
+                                />
                             </Row>
 
                             <Row>
@@ -89,10 +102,6 @@ export default function WorkoutInfo(props) {
                                     {recordsDisplay}
                                 </Col>
                             </Row>
-
-                            {/* {description}
-                            {prescribed_male && rxDetail} */}
-
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>

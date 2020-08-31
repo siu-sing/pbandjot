@@ -19,7 +19,7 @@ export default function RecordDisplay(props) {
     }
 
     let pb_date_display = moment().diff(pb_date, "days") > 5 ? moment(pb_date).format("D MMM YYYY") : moment(pb_date).fromNow();
-    console.log(prescribed)
+    
     let recordDisplay = (
         <Row className="my-2">
             <Col>

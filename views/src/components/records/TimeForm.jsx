@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col, Form, Row } from 'react-bootstrap'
 
-export default function TimeForm() {
+export default function TimeForm(props) {
     return (
 
         <Row className="mx-2 text-center">
@@ -14,6 +14,8 @@ export default function TimeForm() {
                     size="sm"
                     type="number"
                     placeholder="00"
+                    name="pb_time_min"
+                    onChange={props.pbChangeHandler}
 
                 />
             </Col >
@@ -30,7 +32,8 @@ export default function TimeForm() {
                     size="sm"
                     type="number"
                     placeholder="00"
-
+                    name="pb_time_sec"
+                    onChange={props.pbChangeHandler}
                 />
             </Col>
         </Row>

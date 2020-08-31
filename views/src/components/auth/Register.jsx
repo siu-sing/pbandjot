@@ -1,4 +1,4 @@
-import { Form, Col, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import React, { Component } from 'react'
 import Credentials from './registerForms/Credentials';
 import Details from './registerForms/Details';
