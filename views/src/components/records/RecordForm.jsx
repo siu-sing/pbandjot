@@ -22,6 +22,13 @@ export default function RecordForm(props) {
                     <Col
                     // className="border border-success"
                     >
+                        <Row>
+                            {workout_type === "weightlifting" ? (<WeightForm />) : (<TimeForm />)}
+                        </Row>
+                    </Col>
+                    <Col
+                    // className="border border-success"
+                    >
                         <Form.Control
                             size="sm"
                             type="date"
@@ -29,14 +36,6 @@ export default function RecordForm(props) {
                             onChange={dateChangeHandler}
                         />
                     </Col>
-                    <Col
-                    // className="border border-success"
-                    >
-                        <Row>
-                            {workout_type === "weightlifting" ? (<WeightForm />) : (<TimeForm />)}
-                        </Row>
-                    </Col>
-
                 </Form.Row>
                 <Button
                     size="sm"

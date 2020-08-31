@@ -5,6 +5,7 @@ const Record = require("../model/record.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const hasToken = require("../config/config.js");
+const mongoose = require("mongoose");
 
 
 //ALL ROUTES ARE PRIVATE, REQUIRES USER TOKEN
@@ -30,10 +31,10 @@ router.post('/', hasToken, async (req, res) => {
         let prescribed_field = gender == "M" ? "prescribed_male" : "prescribed_female";
         
         //Get workout_type and prescribed weight
-        let qRes = await Workout.findById(workout_id, `workout_type ${prescribed_field} -_id`);
+        let qRes = await Workout.findById("5f4a7ae512c7847b86d918a3", `workout_type ${prescribed_field} -_id`);
         let prescribed = false;
-        let prescribed_weight = res[prescribed_field]
-        
+        let prescribed_weight = qRes[prescribed_field]
+    
         //If is a non weightlifting workout then there will be prescribed weight
         if (qRes.workout_type != "weightlifting") {            
             prescribed = pb_weight >= prescribed_weight
