@@ -18,6 +18,9 @@ export default function WorkoutInfo(props) {
         let postRes = await Axios.post(`${URL}/records`, pb_details, {headers: { "x-auth-token": token } });
         console.log(postRes)
 
+
+        //CLEAR INPUT FIELDS
+
     }
 
     //GET AND SET PB FOR EACH WORKOUT
