@@ -40,7 +40,6 @@ export default function WorkoutInfo(props) {
         }
     }
 
-    // const [pBest, setpBest] = useState(pbwt)
 
     let recordsDisplay = (
         records.map(r => (
