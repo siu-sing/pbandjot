@@ -16,33 +16,25 @@ export default function RecordForm(props) {
     let workout_type = props.w;
 
     return (
-        <Col className="">
+        <Col>
             <Form>
-                <Form.Row>
-                    <Col
-                    // className="border border-success"
-                    >
-                        <Row>
-                            {workout_type === "weightlifting" ? (<WeightForm />) : (<TimeForm />)}
-                        </Row>
+                <Form.Group as={Row}>
+                    <Col className="col-5 p-0">
+                        {workout_type === "weightlifting" ? (<WeightForm />) : (<TimeForm />)}
                     </Col>
-                    <Col
-                    // className="border border-success"
-                    >
+                    <Col className="col-5 p-0">
                         <Form.Control
                             size="sm"
                             type="date"
                             value={rDate}
-                            onChange={dateChangeHandler}
-                        />
+                            onChange={dateChangeHandler} />
                     </Col>
-                </Form.Row>
-                <Button
-                    size="sm"
-                    className="float-right m-1"
-                >
-                    Add
-                    </Button>
+                    <Col
+                        className="col-2 p-0 pl-1 "
+                    >
+                        <Button className="btn btn-block" size="sm">+</Button>
+                    </Col>
+                </Form.Group >
             </Form>
         </Col>
     )
