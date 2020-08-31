@@ -54,6 +54,8 @@ export default function Workouts() {
                     })
 
                     //SET STATES UPON FETCHING
+                    console.log(allWorkouts);
+                    allWorkouts.sort(compareRecords);
                     setWorkouts(allWorkouts);
                     setFilteredWorkouts(allWorkouts);
                 } catch (error) {
@@ -63,6 +65,45 @@ export default function Workouts() {
             fetchRecordsDisplay(token);
         }, []
     );
+
+    //Sort helper functions
+    let compareRecords = (a, b) => {
+        //a less than b return -1
+        //a more than b return 1
+        //equal return 0
+
+        //IF BOTH WORKOUT HAS RECORDS
+        if (a.records.length > 0 && b.records.length > 0) {
+            let latestDateA = getLatestRecordDate(a.records);
+            let latestDateB = getLatestRecordDate(b.records);
+            if (latestDateA > latestDateB) {
+                return -1;
+            } else if (latestDateA < latestDateB) {
+                return 1;
+            } else {
+                return 0;
+            }
+            //ONLY B HAS RECORDS
+        } else if (a.records.length == 0 && b.records.length > 0) {
+            return 1
+            //ONLY A HAS RECORDS
+        } else if (b.records.length == 0 && a.records.length > 0) {
+            return -1
+            //BOTH HAS NO RECORDS
+        } else {
+            return 0
+        }
+    }
+
+    let getLatestRecordDate = (recArr) => {
+        console.log(recArr)
+        let latestDate = recArr[0].pb_date
+        //for each record, get 
+        recArr.forEach(r => {
+            if (r.pb_date > latestDate) latestDate = r.pb_date;
+        })
+        return latestDate
+    }
 
 
     return (
