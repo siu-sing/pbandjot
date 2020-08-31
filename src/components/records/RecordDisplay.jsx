@@ -5,9 +5,11 @@ import Axios from 'axios';
 const URL = process.env.REACT_APP_URL;
 
 export default function RecordDisplay(props) {
-    console.log(props)
+
     let { pb_date, pb_time_min, pb_time_sec, pb_weight, prescribed, liked_by } = props.record;
     let { _id, description, prescribed_female, prescribed_male, workout_name, workout_type } = props.workout;
+
+    //SET PB VALUE
     let pb_value = "";
     switch (workout_type) {
         case "weightlifting":
@@ -21,6 +23,7 @@ export default function RecordDisplay(props) {
     }
     let pb_date_display = moment().diff(pb_date, "days") > 5 ? moment(pb_date).format("D MMM YYYY") : moment(pb_date).fromNow();
 
+    //HANDLE RECORD DELETION
     let deleteHandler = async (record_id) => {
         let token = localStorage.getItem("token");
         try {
@@ -30,6 +33,7 @@ export default function RecordDisplay(props) {
                         "x-auth-token": token
                     }
                 })
+            await props.fetchRecords();
             handleClose();
         } catch (error) {
             console.log(error)
@@ -65,7 +69,7 @@ export default function RecordDisplay(props) {
                         onClick={handleShow}
                     >
                         -
-            </Button>
+                    </Button>
                 </Col>
             </Row>
             <Modal show={showDel} onHide={handleClose}>
@@ -76,7 +80,7 @@ export default function RecordDisplay(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         No
                     </Button>
-                    <Button variant="danger" onClick={()=>deleteHandler(props.record._id)}>
+                    <Button variant="danger" onClick={() => deleteHandler(props.record._id)}>
                         Yes
                     </Button>
                 </Modal.Footer>
