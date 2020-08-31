@@ -1,5 +1,5 @@
-import React from 'react'
-import { Col, Row, Button } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Col, Row, Button, Modal } from 'react-bootstrap'
 import moment from 'moment';
 import Axios from 'axios';
 const URL = process.env.REACT_APP_URL;
@@ -30,38 +30,58 @@ export default function RecordDisplay(props) {
                         "x-auth-token": token
                     }
                 })
+            handleClose();
         } catch (error) {
             console.log(error)
         }
     };
 
+    const [showDel, setShowDel] = useState(false);
+    const handleClose = () => setShowDel(false);
+    const handleShow = () => setShowDel(true)
+
     let recordDisplay = (
-        <Row className="my-2">
-            <Col xs={5}>
-                <Row className="">
-                    <Col
-                        // xs={9}
-                        className="text-right p-0">
-                        {pb_value}
-                    </Col>
-                    <Col
-                        // xs={3}
-                        className="p-0 pl-1 text-center">
-                        {prescribed_male && prescribed && "Rx"}
-                    </Col>
-                </Row>
-            </Col>
-            <Col xs={5} className="text-muted font-italic text-center">{pb_date_display}</Col>
-            <Col xs={2}>
-                <Button
-                    size="sm"
-                    variant="outline-danger"
-                    onClick={() => { deleteHandler(props.record._id) }}
-                >
-                    -
+        <>
+            <Row className="my-2">
+                <Col xs={5}>
+                    <Row className="">
+                        <Col
+                            // xs={9}
+                            className="text-right p-0">
+                            {pb_value}
+                        </Col>
+                        <Col
+                            // xs={3}
+                            className="p-0 pl-1 text-center">
+                            {prescribed_male && prescribed && "Rx"}
+                        </Col>
+                    </Row>
+                </Col>
+                <Col xs={5} className="text-muted font-italic text-center">{pb_date_display}</Col>
+                <Col xs={2}>
+                    <Button
+                        size="sm"
+                        variant="outline-danger"
+                        onClick={handleShow}
+                    >
+                        -
             </Button>
-            </Col>
-        </Row>
+                </Col>
+            </Row>
+            <Modal show={showDel} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    Delete record?
+                </Modal.Header>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        No
+                    </Button>
+                    <Button variant="danger" onClick={()=>deleteHandler(props.record._id)}>
+                        Yes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     )
 
     return (
