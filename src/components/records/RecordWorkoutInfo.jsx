@@ -48,7 +48,7 @@ export default function WorkoutInfo(props) {
         ))
     )
 
-    console.log(records)
+    // console.log(records)
     return (
         <Col className="mx-auto my-1 ">
             <Accordion>

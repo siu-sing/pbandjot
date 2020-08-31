@@ -5,7 +5,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import Workouts from './components/records/RecordWorkouts';
+import RecordWorkouts from './components/records/RecordWorkouts';
 import Home from './components/Home';
 import { Container } from 'react-bootstrap';
 import Navigation from './components/Navigation';
@@ -30,8 +30,8 @@ function App() {
             .then((res) => {
                 setIsAuth(true);
                 setUser(res.data.user);
-                console.log(res.data.user);
-            }).catch((err)=> {
+                // console.log(res.data.user);
+            }).catch((err) => {
                 console.log(err.response.data.message)
             })
 
@@ -41,7 +41,6 @@ function App() {
     let loginHandler = (credentials) => {
         Axios.post(`${URL}/auth/login`, credentials)
             .then((res) => {
-                console.log(res.data)
                 localStorage.setItem("token", res.data.token)
                 getUserProfile(res.data.token);
                 setIsAuth(true);
@@ -52,19 +51,18 @@ function App() {
     }
 
     useEffect(
-        ()=>{
+        () => {
             let token = localStorage.getItem("token");
-            console.log(token)
-            if(!(token==null)) {
+            if (!(token == null)) {
                 //Get user profile each time page reloads
                 let decodedToken = decode(token);
-                if(!decodedToken){
+                if (!decodedToken) {
                     localStorage.removeItem("token");
                 } else {
                     getUserProfile(token);
                 }
             }
-        },[]
+        }, []
     );
 
 
@@ -80,11 +78,11 @@ function App() {
                 >
                     <Switch>
                         <Container>
-                            <Route path="/workouts">
-                                <Workouts />
-                            </Route>
                             <Route path="/" exact>
                                 <Home user={user} />
+                            </Route>
+                            <Route path="/records">
+                                <RecordWorkouts />
                             </Route>
                             <Route path="/register" exact>
                                 <Register />
