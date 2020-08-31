@@ -77,6 +77,25 @@ router.get('/', hasToken, async (req, res) => {
     }
 });
 
+//VIEW RECORD BY WORKOUT - needs token
+router.get('/workouts/:workout_id', hasToken, async (req,res)=> {
+    try {
+        let records = await Record.find({
+            user_id:req.user.id,
+            workout_id:req.params.workout_id
+        })
+        res.status(200).json({
+            count: records.length,
+            records,
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Unable to get records."
+        })
+    }
+});
+
+
 //VIEW ONE RECORD
 //DELETE ONE RECORD
 router.delete("/:id", hasToken, async (req, res) => {
