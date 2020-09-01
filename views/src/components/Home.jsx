@@ -1,6 +1,8 @@
 import React from 'react'
 import LogoDisplay from './LogoDisplay'
 import { Row, Col, Button } from 'react-bootstrap'
+import { Fade as Anim } from "react-awesome-reveal";
+
 
 export default function Home({ user, isAuth }) {
     // let {username} = props.user;
@@ -11,54 +13,55 @@ export default function Home({ user, isAuth }) {
 
     return (
         <>
-            <Row className="justify-content-center">
-                <Col xs="auto">
-                    <LogoDisplay size={logoSize} />
-                </Col>
-            </Row>
-            <Row className="justify-content-center">
-                <Col xs="auto mt-2">
-                    <h1>PB&Jot</h1>
-                </Col>
-            </Row>
-            <Row className="justify-content-center">
-                <Col xs="auto">
-                    <h4>Record your personal bests.</h4>
-                </Col>
-            </Row>
-            {
-                isAuth ?
-                    <Row className="justify-content-center">
-                        <Col md={{ span: 3 }} xs={{ span: 8 }} className="text-center">
-                            Ready to add new PBs?
-                        </Col>
-                    </Row>
-                    : <>
-                        <Row className="justify-content-center my-3">
-                            <Col md={{ span: 3 }} xs={{ span: 8 }} className="">
-                                <Button
-                                    variant="warning"
-                                    block
-                                    href="/login"
-                                >
-                                    Login
-                    </Button>
-                            </Col>
-                        </Row>
+            <Anim cascade duration={500}>
+                <Row className="justify-content-center">
+                    <Col xs="auto">
+                        <LogoDisplay size={logoSize} />
+                    </Col>
+                </Row>
+                <Row className="justify-content-center">
+                    <Col xs="auto mt-2">
+                        <h1>PB&Jot</h1>
+                    </Col>
+                </Row>
+                <Row className="justify-content-center">
+                    <Col xs="auto">
+                        <h4>Record your personal bests.</h4>
+                    </Col>
+                </Row>
+                {
+                    isAuth ?
                         <Row className="justify-content-center">
-                            <Col md={{ span: 3 }} xs={{ span: 8 }} className="">
-                                <Button
-                                    variant="warning"
-                                    block
-                                    href="/register"
-                                >
-                                    Register
-                    </Button>
-                            </Col>
+                            <Col md={{ span: 3 }} xs={{ span: 8 }} className="text-center">
+                                Ready to add new PBs?
+                        </Col>
                         </Row>
-                    </>
-            }
-
+                        : <>
+                            <Row className="justify-content-center my-3">
+                                <Col md={{ span: 3 }} xs={{ span: 8 }} className="">
+                                    <Button
+                                        variant="warning"
+                                        block
+                                        href="/login"
+                                    >
+                                        Login
+                    </Button>
+                                </Col>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <Col md={{ span: 3 }} xs={{ span: 8 }} className="">
+                                    <Button
+                                        variant="warning"
+                                        block
+                                        href="/register"
+                                    >
+                                        Register
+                    </Button>
+                                </Col>
+                            </Row>
+                        </>
+                }
+            </Anim>
 
         </>
     )
