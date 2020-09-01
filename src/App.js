@@ -32,7 +32,7 @@ function App() {
                 setUser(res.data.user);
                 // console.log(res.data.user);
             }).catch((err) => {
-                console.log(err.response.data.message)
+                console.log(err)
             })
 
 
@@ -48,6 +48,10 @@ function App() {
             .catch((err) => {
                 console.log(err);
             })
+    }
+
+    let logoutHandler = () => {
+
     }
 
     useEffect(

@@ -4,6 +4,9 @@ import Credentials from './registerForms/Credentials';
 import Details from './registerForms/Details';
 import Contact from './registerForms/Contact';
 import Axios from 'axios'
+import CredentialsForm from './registerForms/CredentialsForm';
+import ContactForm from './registerForms/ContactForm';
+import DetailsForm from './registerForms/DetailsForm';
 const URL = process.env.REACT_APP_URL;
 
 export default class Register extends Component {
@@ -39,6 +42,8 @@ export default class Register extends Component {
         let tmp = this.state;
         let res = this.addToObject(tmp, data)
         this.setState({ res })
+        console.log("FROM REGISTER")
+        console.log(this.state)
     };
 
     //helper function
@@ -48,7 +53,7 @@ export default class Register extends Component {
         }
         return obj
     }
-
+    
     registerUser = () => {
         //AXIOS CALL TO REGISTER
         //registerUser(request_body)
@@ -64,8 +69,9 @@ export default class Register extends Component {
                 localStorage.setItem("token",res.data.token)
             })
             .catch((err)=>{
-                console.log(err.response.data.message);
+                console.log(err);
             })
+        
     }
 
     // display = (<Credentials />
@@ -73,19 +79,19 @@ export default class Register extends Component {
         let display = "";
         switch (this.state.step) {
             case 1:
-                display = (<Credentials
+                display = (<CredentialsForm
                     saveData={this.saveData}
                     nextStep={this.nextStep}
                 />)
                 break;
             case 2:
-                display = (<Contact
+                display = (<ContactForm
                     saveData={this.saveData}
                     nextStep={this.nextStep}
                 />)
                 break;
             case 3:
-                display = (<Details
+                display = (<DetailsForm
                     saveData={this.saveData}
                     registerUser={this.registerUser}
                 />)
