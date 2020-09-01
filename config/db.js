@@ -5,13 +5,13 @@ const mongoose = require("mongoose");
 //connect to mongoose
 
 mongoose.connect(
-    process.env.MONGODB,
+    process.env.MONGODBLIVE,
     {
         useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }, (err) => { if(err) throw err;
-        console.log(`mongodb connected! ${process.env.MONGODB}`);
+        console.log(`mongodb connected! ${process.env.MONGODBLIVE}`);
     }
 )
 
