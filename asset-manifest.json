@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/pbandjot/static/css/main.43a0fb8c.chunk.css",
+    "main.js": "/pbandjot/static/js/main.dd2dd486.chunk.js",
+    "main.js.map": "/pbandjot/static/js/main.dd2dd486.chunk.js.map",
+    "runtime-main.js": "/pbandjot/static/js/runtime-main.4d119172.js",
+    "runtime-main.js.map": "/pbandjot/static/js/runtime-main.4d119172.js.map",
+    "static/css/2.11829350.chunk.css": "/pbandjot/static/css/2.11829350.chunk.css",
+    "static/js/2.eeba196e.chunk.js": "/pbandjot/static/js/2.eeba196e.chunk.js",
+    "static/js/2.eeba196e.chunk.js.map": "/pbandjot/static/js/2.eeba196e.chunk.js.map",
+    "index.html": "/pbandjot/index.html",
+    "precache-manifest.fa6f2731564a8050b4288be9ec7bebb5.js": "/pbandjot/precache-manifest.fa6f2731564a8050b4288be9ec7bebb5.js",
+    "service-worker.js": "/pbandjot/service-worker.js",
+    "static/css/2.11829350.chunk.css.map": "/pbandjot/static/css/2.11829350.chunk.css.map",
+    "static/css/main.43a0fb8c.chunk.css.map": "/pbandjot/static/css/main.43a0fb8c.chunk.css.map",
+    "static/js/2.eeba196e.chunk.js.LICENSE.txt": "/pbandjot/static/js/2.eeba196e.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/pbandjot/static/media/logo.c4c0a4c3.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4d119172.js",
+    "static/css/2.11829350.chunk.css",
+    "static/js/2.eeba196e.chunk.js",
+    "static/css/main.43a0fb8c.chunk.css",
+    "static/js/main.dd2dd486.chunk.js"
+  ]
+}
