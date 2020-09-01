@@ -125,3 +125,8 @@ html body {
     height:100%;
     background-color: #000000
 }
+
+
+.record__card{
+    background-color: #343434 !important;
+}

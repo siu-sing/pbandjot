@@ -8,7 +8,7 @@ export default function Home({ user, isAuth }) {
     // let {username} = props.user;
 
     let display = null;
-    let logoSize = isAuth ? 150 : 180;
+    let logoSize = isAuth ? 120 : 180;
 
 
     return (
@@ -24,19 +24,20 @@ export default function Home({ user, isAuth }) {
                         <h1>PB&Jot</h1>
                     </Col>
                 </Row>
-                <Row className="justify-content-center">
-                    <Col xs="auto">
-                        <h4>Record your personal bests.</h4>
-                    </Col>
-                </Row>
+
                 {
                     isAuth ?
                         <Row className="justify-content-center">
                             <Col md={{ span: 3 }} xs={{ span: 8 }} className="text-center">
-                                Ready to add new PBs?
+                                user records here
                         </Col>
                         </Row>
                         : <>
+                            <Row className="justify-content-center">
+                                <Col xs="auto">
+                                    <h4>Record your personal bests.</h4>
+                                </Col>
+                            </Row>
                             <Row className="justify-content-center my-3">
                                 <Col md={{ span: 3 }} xs={{ span: 8 }} className="">
                                     <Button

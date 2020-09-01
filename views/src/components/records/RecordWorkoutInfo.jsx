@@ -86,7 +86,7 @@ export default function WorkoutInfo(props) {
     return (
         <Col className="mx-auto my-1 ">
             <Accordion>
-                <Card>
+                <Card className="record__card">
                     <Accordion.Toggle className="text-left" as={Card.Header} eventKey="0">
                         <Row>
                             <Col>
