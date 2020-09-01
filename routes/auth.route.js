@@ -135,4 +135,19 @@ router.get("/usercheck/:username", async (req,res) => {
     }
 });
 
+//Check if email exists
+router.get("/emailcheck/:email", async (req,res) => {
+    try {
+        let user = await User.findOne({email: req.params.email})
+        let message = user ? "Email exists" : "Email does not exist";
+        res.status(200).json({
+            message: message
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Unable to check if email exists."
+        })          
+    }
+});
+
 module.exports = router;
