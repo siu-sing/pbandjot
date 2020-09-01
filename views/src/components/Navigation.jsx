@@ -5,7 +5,7 @@ import { slide as Menu } from 'react-burger-menu'
 // import { Button } from 'react-bootstrap';
 
 
-export default function Navigation() {
+export default function Navigation(props) {
 
     const [open, setOpen] = useState(false);
 
@@ -22,13 +22,17 @@ export default function Navigation() {
     return (
         <>
             <Menu
+                width={150}
                 isOpen={open}
                 onStateChange={(state) => handleStateChange(state)}
-            // noTransition
-            pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }
+                // noTransition
+                pageWrapId={"page-wrap"} outerContainerId={"outer-container"}
             >
                 {/* <Button onClick={closeMenu}>Toggle</Button> */}
-                <SideBar closeMenu={closeMenu} />
+                <SideBar
+                    closeMenu={closeMenu}
+                    isAuth={props.isAuth}
+                />
             </Menu>
         </>
     )

@@ -30,7 +30,7 @@ function App() {
             .then((res) => {
                 setIsAuth(true);
                 setUser(res.data.user);
-                // console.log(res.data.user);
+                console.log(res.data.user);
             }).catch((err) => {
                 console.log(err)
             })
@@ -75,7 +75,7 @@ function App() {
         // id="outer-container"
         >
             <Router>
-                <Navigation />
+                <Navigation isAuth={isAuth} />
                 <div
                     // id="page-wrap"
                     className="pt-5"
@@ -83,7 +83,10 @@ function App() {
                     <Switch>
                         <Container>
                             <Route path="/" exact>
-                                <Home user={user} />
+                                <Home
+                                    user={user}
+                                    isAuth={isAuth}
+                                />
                             </Route>
                             <Route path="/records">
                                 <RecordWorkouts />
@@ -93,7 +96,10 @@ function App() {
                             </Route>
                             <Route path="/login" exact>
                                 {
-                                    isAuth ? <Home user={user} />
+                                    isAuth ? <Home
+                                        user={user}
+                                        isAuth={isAuth}
+                                    />
                                         : <Login
                                             loginHandler={loginHandler}
                                         />
