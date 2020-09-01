@@ -21,7 +21,7 @@ export default class Contact extends Component {
     render() {
         return (
             <div>
-                <Form.Group>
+                   <Form.Group>
                     <Form.Label>Your contact details</Form.Label>
                     <Form.Control
                         onChange={this.changeHandler}

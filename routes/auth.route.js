@@ -120,4 +120,19 @@ router.get("/user", hasToken, async (req, res) => {
     }
 });
 
+//Check if username exists
+router.get("/usercheck/:username", async (req,res) => {
+    try {
+        let user = await User.findOne({username: req.params.username})
+        let message = user ? "User exists" : "User does not exist";
+        res.status(200).json({
+            message: message
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Unable to check if user exists."
+        })          
+    }
+});
+
 module.exports = router;
