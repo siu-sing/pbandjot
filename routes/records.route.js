@@ -19,6 +19,7 @@ router.post('/', hasToken, async (req, res) => {
         workout_id
     } = req.body;
     let user_id = req.user.id;
+    console.log("TRYING TO CREATE RECORD")
     try {
 
         //Set prescribed flag
@@ -31,7 +32,8 @@ router.post('/', hasToken, async (req, res) => {
         let prescribed_field = gender == "M" ? "prescribed_male" : "prescribed_female";
         
         //Get workout_type and prescribed weight
-        let qRes = await Workout.findById("5f4a7ae512c7847b86d918a3", `workout_type ${prescribed_field} -_id`);
+        let qRes = await Workout.findById(workout_id, `workout_type ${prescribed_field} -_id`);
+        console.log(qRes);
         let prescribed = false;
         let prescribed_weight = qRes[prescribed_field]
     
@@ -56,6 +58,7 @@ router.post('/', hasToken, async (req, res) => {
             message: "Record added successfully."
         })
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             message: "Unable to create record."
         })
