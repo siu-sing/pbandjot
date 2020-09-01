@@ -2,6 +2,7 @@ import React from 'react'
 import LogoDisplay from './LogoDisplay'
 import { Row, Col, Button } from 'react-bootstrap'
 import { Fade as Anim } from "react-awesome-reveal";
+import RecordList from './records/RecordList';
 
 
 export default function Home({ user, isAuth }) {
@@ -10,59 +11,66 @@ export default function Home({ user, isAuth }) {
     let display = null;
     let logoSize = isAuth ? 120 : 180;
 
+    //IF IS AUTH, FETCH USER PBS
+
 
     return (
         <>
-            <Anim cascade duration={500}>
-                <Row className="justify-content-center">
-                    <Col xs="auto">
-                        <LogoDisplay size={logoSize} />
-                    </Col>
-                </Row>
-                <Row className="justify-content-center">
-                    <Col xs="auto mt-2">
-                        <h1>PB&Jot</h1>
-                    </Col>
-                </Row>
+            {/* <Anim cascade duration={500}> */}
+            <Row className="justify-content-center">
+                <Col xs="auto">
+                    <LogoDisplay size={logoSize} />
+                </Col>
+            </Row>
+            <Row className="justify-content-center">
+                <Col xs="auto mt-2">
+                    <h1>PB&Jot</h1>
+                </Col>
+            </Row>
 
-                {
-                    isAuth ?
-                        <Row className="justify-content-center">
-                            <Col md={{ span: 3 }} xs={{ span: 8 }} className="text-center">
-                                user records here
+            {
+                isAuth ?
+                    <Row className="justify-content-center">
+                        <Col
+                            md={{ span: 8 }} xs={{ span: 8 }}
+                            className="text-center">
+                            <RecordList
+                                user={user}
+                                isAuth={isAuth}
+                            />
                         </Col>
+                    </Row>
+                    : <>
+                        <Row className="justify-content-center">
+                            <Col xs="auto">
+                                <h4>Record your personal bests.</h4>
+                            </Col>
                         </Row>
-                        : <>
-                            <Row className="justify-content-center">
-                                <Col xs="auto">
-                                    <h4>Record your personal bests.</h4>
-                                </Col>
-                            </Row>
-                            <Row className="justify-content-center my-3">
-                                <Col md={{ span: 3 }} xs={{ span: 8 }} className="">
-                                    <Button
-                                        variant="warning"
-                                        block
-                                        href="/login"
-                                    >
-                                        Login
+                        <Row className="justify-content-center my-3">
+                            <Col md={{ span: 3 }} xs={{ span: 8 }} className="">
+                                <Button
+                                    variant="warning"
+                                    block
+                                    href="/login"
+                                >
+                                    Login
                     </Button>
-                                </Col>
-                            </Row>
-                            <Row className="justify-content-center">
-                                <Col md={{ span: 3 }} xs={{ span: 8 }} className="">
-                                    <Button
-                                        variant="warning"
-                                        block
-                                        href="/register"
-                                    >
-                                        Register
+                            </Col>
+                        </Row>
+                        <Row className="justify-content-center">
+                            <Col md={{ span: 3 }} xs={{ span: 8 }} className="">
+                                <Button
+                                    variant="warning"
+                                    block
+                                    href="/register"
+                                >
+                                    Register
                     </Button>
-                                </Col>
-                            </Row>
-                        </>
-                }
-            </Anim>
+                            </Col>
+                        </Row>
+                    </>
+            }
+            {/* </Anim> */}
 
         </>
     )

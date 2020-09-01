@@ -30,15 +30,15 @@ router.post('/', hasToken, async (req, res) => {
 
         //Set the field to which to obtained the prescribed weight
         let prescribed_field = gender == "M" ? "prescribed_male" : "prescribed_female";
-        
+
         //Get workout_type and prescribed weight
         let qRes = await Workout.findById(workout_id, `workout_type ${prescribed_field} -_id`);
         console.log(qRes);
         let prescribed = false;
         let prescribed_weight = qRes[prescribed_field]
-    
+
         //If is a non weightlifting workout then there will be prescribed weight
-        if (qRes.workout_type != "weightlifting") {            
+        if (qRes.workout_type != "weightlifting") {
             prescribed = pb_weight >= prescribed_weight
         }
 
@@ -65,10 +65,12 @@ router.post('/', hasToken, async (req, res) => {
     }
 });
 
-//VIEW ALL RECORDS
+//VIEW ALL RECORDS BY USER
 router.get('/', hasToken, async (req, res) => {
     try {
-        let records = await Record.find({user_id:req.user.id})
+        let records = await Record.find({
+            user_id: req.user.id
+        }).populate('workout_id')
         res.status(200).json({
             count: records.length,
             records,
@@ -81,11 +83,11 @@ router.get('/', hasToken, async (req, res) => {
 });
 
 //VIEW RECORD BY WORKOUT - needs token
-router.get('/workouts/:workout_id', hasToken, async (req,res)=> {
+router.get('/workouts/:workout_id', hasToken, async (req, res) => {
     try {
         let records = await Record.find({
-            user_id:req.user.id,
-            workout_id:req.params.workout_id
+            user_id: req.user.id,
+            workout_id: req.params.workout_id
         })
         res.status(200).json({
             count: records.length,
@@ -98,13 +100,40 @@ router.get('/workouts/:workout_id', hasToken, async (req,res)=> {
     }
 });
 
+//GET USER RECORDS FOR EACH WORKOUT
+router.get('/allworkouts', hasToken, async (req, res) => {
+
+    //GET ALL WORKOUTS
+    //FOR EACH WORKOUT, GET USER RECORDS AND ADD INTO WORKOUT OBJ
+    try {
+        let workouts = await Workout.aggregate([
+            {
+                $lookup: {
+                    from: "records",
+                    localField: "_id",
+                    foreignField: "workout_id",
+                    as: "records"
+                    }
+                }
+            ])
+        res.status(200).json({
+            workouts
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Unable to get records for all workouts."
+        })
+    }
+});
+
 
 //VIEW ONE RECORD
 //DELETE ONE RECORD
 router.delete("/:id", hasToken, async (req, res) => {
     try {
         let recordDelete = await Record.findByIdAndDelete(req.params.id);
-        if(recordDelete){
+        if (recordDelete) {
             res.status(200).json({
                 message: "Record deleted."
             })
