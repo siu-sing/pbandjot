@@ -76,6 +76,7 @@ function App() {
         >
             <Router>
                 <Navigation isAuth={isAuth} />
+                <div className="top__right font-italic">{ user && (`@${user.username}`)}</div>
                 <div
                     // id="page-wrap"
                     className="pt-5"

@@ -22,25 +22,32 @@ export default function Home({ user, isAuth }) {
                     <LogoDisplay size={logoSize} />
                 </Col>
             </Row>
-            <Row className="justify-content-center">
-                <Col xs="auto mt-2">
-                    <h1>PB&Jot</h1>
-                </Col>
-            </Row>
 
             {
                 isAuth ?
-                    <Row className="justify-content-center">
-                        <Col
-                            md={{ span: 8 }} xs={{ span: 8 }}
-                            className="text-center">
-                            <RecordList
-                                user={user}
-                                isAuth={isAuth}
-                            />
-                        </Col>
-                    </Row>
+                    <>
+                        <Row className="justify-content-center mt-2">
+                            <Col xs="auto">
+                                <h5>Your personal bests.</h5>
+                            </Col>
+                        </Row>
+                        <Row className="justify-content-center">
+                            <Col
+                                md={{ span: 8 }} xs={{ span: 8 }}
+                                className="text-center">
+                                <RecordList
+                                    user={user}
+                                    isAuth={isAuth}
+                                />
+                            </Col>
+                        </Row>
+                    </>
                     : <>
+                        <Row className="justify-content-center">
+                            <Col xs="auto mt-2">
+                                <h1>PB&Jot</h1>
+                            </Col>
+                        </Row>
                         <Row className="justify-content-center">
                             <Col xs="auto">
                                 <h4>Record your personal bests.</h4>
