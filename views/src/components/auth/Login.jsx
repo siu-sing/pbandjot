@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Col, Row } from 'react-bootstrap';
 
 export default function Login(props) {
 
@@ -27,33 +27,60 @@ export default function Login(props) {
 
 
     return (
-        <div>
-            <h1>Welcome back</h1>
-            <Form>
-                <Form.Group>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="username"
-                        placeholder="username"
-                        onChange={changeHandler}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        name="password"
-                        placeholder=""
-                        onChange={changeHandler}
-                    />
-                </Form.Group>
-                <Button
-                    onClick={loginHandler}
-                >
-                    Login
-                </Button>
-            </Form>
-        </div>
+        <>
+            <Row>
+                <Col>
+                    <Row className="justify-content-center yellow__text my-3">
+                        <Col
+                            className="text-center"
+                        >
+                            <h1>Login to record your gains.</h1>
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-center my-5">
+                        <Col
+                            className="text-center"
+                            md={{ span: 4 }} xs={{ span: 6 }}
+
+                        >
+                            <Form>
+                                <Form.Group>
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="username"
+                                        placeholder=""
+                                        onChange={changeHandler}
+                                    />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        name="password"
+                                        placeholder=""
+                                        onChange={changeHandler}
+                                    />
+                                    <Form.Text className="">
+                                        {props.loginError ? props.loginError : <span>&nbsp;</span> }
+                                    </Form.Text>
+                                </Form.Group>
+
+                                <Button
+                                    variant="warning"
+                                    onClick={loginHandler}
+                                    block
+                                >
+                                    Login
+                                </Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+
+
+
+        </>
     )
 }

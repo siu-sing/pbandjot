@@ -106,16 +106,35 @@ router.get('/allworkouts', hasToken, async (req, res) => {
     //GET ALL WORKOUTS
     //FOR EACH WORKOUT, GET USER RECORDS AND ADD INTO WORKOUT OBJ
     try {
-        let workouts = await Workout.aggregate([
-            {
+        let workouts = await Workout.aggregate(
+            [{
                 $lookup: {
                     from: "records",
                     localField: "_id",
                     foreignField: "workout_id",
                     as: "records"
+                }
+            }, {
+                $project: {
+                    _id: 1,
+                    workout_name: 1,
+                    workout_type: 1,
+                    description: 1,
+                    prescribed_male: 1,
+                    prescribed_female: 1,
+                    owner: 1,
+                    records: {
+                        $filter: {
+                            input: "$records",
+                            as: "record",
+                            cond: {
+                                $eq: ["$$record.user_id", new mongoose.Types.ObjectId(req.user.id)]
+                            }
+                        }
                     }
                 }
-            ])
+            }]
+        )
         res.status(200).json({
             workouts
         })
@@ -134,9 +153,10 @@ router.get('/allworkouts/:workout_id', hasToken, async (req, res) => {
     //FOR EACH WORKOUT, GET USER RECORDS AND ADD INTO WORKOUT OBJ
     console.log(req.params.workout_id)
     try {
-        let workouts = await Workout.aggregate([
-            {
-                $match: { _id: new mongoose.Types.ObjectId(req.params.workout_id) }
+        let workouts = await Workout.aggregate([{
+                $match: {
+                    _id: new mongoose.Types.ObjectId(req.params.workout_id)
+                }
             },
             {
                 $lookup: {
@@ -144,9 +164,29 @@ router.get('/allworkouts/:workout_id', hasToken, async (req, res) => {
                     localField: "_id",
                     foreignField: "workout_id",
                     as: "records"
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    workout_name: 1,
+                    workout_type: 1,
+                    description: 1,
+                    prescribed_male: 1,
+                    prescribed_female: 1,
+                    owner: 1,
+                    records: {
+                        $filter: {
+                            input: "$records",
+                            as: "record",
+                            cond: {
+                                $eq: ["$$record.user_id", new mongoose.Types.ObjectId(req.user.id)]
+                            }
+                        }
                     }
                 }
-            ])
+            }
+        ])
         res.status(200).json({
             workouts
         })

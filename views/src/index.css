@@ -123,6 +123,10 @@ body {
     color: #FFD51F;
 }
 
+.red__text {
+    color: red;
+}
+
 .yellow__background {
     position: relative;
     color: #000000;

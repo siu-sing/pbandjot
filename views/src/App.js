@@ -25,6 +25,7 @@ function App() {
     const [errorMessage, setErrorMessage] = useState("");
     const [user, setUser] = useState(null);
     const [currentWorkout, setCurrentWorkout ] = useState({});
+    const [loginError, setLoginError] = useState("");
     
     let getUserProfile = (token) => {
         // console.log(`TOKEN??:: ${token}`)
@@ -47,9 +48,12 @@ function App() {
                 localStorage.setItem("token", res.data.token)
                 getUserProfile(res.data.token);
                 setIsAuth(true);
+                setLoginError("");
             })
             .catch((err) => {
+                console.log("ERROR HERE")
                 console.log(err);
+                setLoginError(err.response.data.message)
             })
     }
 
@@ -70,7 +74,7 @@ function App() {
                 }
             }
             console.log(currentWorkout);
-        }, []
+        }, [isAuth]
     );
 
 
@@ -117,6 +121,7 @@ function App() {
                                     />
                                         : <Login
                                             loginHandler={loginHandler}
+                                            loginError={loginError}
                                         />
                                 }
                             </Route>
