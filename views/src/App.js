@@ -4,6 +4,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    useHistory,
 } from "react-router-dom";
 import RecordWorkouts from './components/records/RecordWorkouts';
 import Home from './components/Home';
@@ -22,6 +23,8 @@ function App() {
     const [isAuth, setIsAuth] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [user, setUser] = useState(null);
+
+    
 
     let getUserProfile = (token) => {
         // console.log(`TOKEN??:: ${token}`)
@@ -51,9 +54,9 @@ function App() {
     }
 
     let logoutHandler = () => {
-
+        localStorage.clear("token")
+        setIsAuth(false);
     }
-
     useEffect(
         () => {
             let token = localStorage.getItem("token");
@@ -75,7 +78,10 @@ function App() {
         // id="outer-container"
         >
             <Router>
-                <Navigation isAuth={isAuth} />
+                <Navigation 
+                    isAuth={isAuth} 
+                    logoutHandler = {logoutHandler}
+                    />
                 <div className="top__right font-italic">{ user && (`@${user.username}`)}</div>
                 <div
                     // id="page-wrap"
@@ -83,7 +89,7 @@ function App() {
                 >
                     <Switch>
                         <Container>
-                            <Route path="/" exact>
+                            <Route path="/home" exact>
                                 <Home
                                     user={user}
                                     isAuth={isAuth}
@@ -106,6 +112,12 @@ function App() {
                                         />
                                 }
 
+                            </Route>
+                            <Route path="/" exact>
+                                <Home
+                                    user={user}
+                                    isAuth={isAuth}
+                                />
                             </Route>
                         </Container>
                     </Switch>
