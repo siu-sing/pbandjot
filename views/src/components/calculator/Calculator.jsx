@@ -29,7 +29,7 @@ export default function Calculator() {
                     <Col
                         className="text-center"
                     >
-                        <h1>Barbell PB Calculator</h1>
+                        <h4>Barbell PB Calculator</h4>
                     </Col>
                 </Row>
                 <Row className="justify-content-center text-center mt-3">
