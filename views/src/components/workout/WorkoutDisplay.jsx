@@ -114,7 +114,7 @@ export default function WorkoutDisplay(props) {
                 </Row>
                 <Row className="justify-content-center p-2">
                     <Col
-                        md={{ span: 6 }} xs={{ span: 4 }}
+                        md={{ span: 6 }} xs={{ span: 6 }}
                     >
                         <Button variant="warning" onClick={handleShowModal} block>Add New PB</Button>
                     </Col>

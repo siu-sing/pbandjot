@@ -114,7 +114,7 @@ class Register extends Component {
                         </Row>
                         <Row className="justify-content-center">
                             <Col
-                                md={{ span: 4 }} xs={{ span: 6 }}
+                                md={{ span: 4 }} xs={{ span: 10 }}
                             >
                                 <Form>
                                     {/* <Form.Row> */}

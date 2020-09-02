@@ -40,7 +40,7 @@ export default function Login(props) {
                     <Row className="justify-content-center my-5">
                         <Col
                             className="text-center"
-                            md={{ span: 4 }} xs={{ span: 6 }}
+                            md={{ span: 4 }} xs={{ span: 10 }}
 
                         >
                             <Form>
