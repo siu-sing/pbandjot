@@ -62,7 +62,7 @@ export default function Calculator() {
                 </Row>
                 <Row className="justify-content-center text-center">
                     <Col>
-                        <p className="display-1">{display}</p>
+                        <p className="display-1">{display} lb</p>
                     </Col>
                 </Row>
                 <Row className="justify-content-center text-center">

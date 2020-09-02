@@ -17,7 +17,6 @@ export default function SideBar(props) {
         <div>
             {/* <LogoDisplay size={30} /> */}
             <Link to="/home" onClick={props.closeMenu} className="bm-item">Home</Link>
-            <Link to="/calculator" onClick={props.closeMenu} className="bm-item">Calculator</Link>
             {
                 isAuth && <>
                     <Link to="/records" onClick={props.closeMenu} className="bm-item">Records</Link>
@@ -30,6 +29,7 @@ export default function SideBar(props) {
                     <Link to="/login" onClick={props.closeMenu} className="bm-item">Login</Link>
                 </>
             }
+            <Link to="/calculator" onClick={props.closeMenu} className="bm-item">Calculator</Link>
         </div>
     )
 }
