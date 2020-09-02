@@ -18,7 +18,7 @@ export default function RecordList(props) {
                     records.forEach(r => {
                         if (pbwt < r.pb_weight) pbwt = r.pb_weight
                     })
-                    return `${pbwt}lb`
+                    return `${pbwt} lb`
                 case "benchmark":
                     let pbtime = 86400;
                     records.forEach(r => {
@@ -105,6 +105,7 @@ export default function RecordList(props) {
         workoutRecords.map(w => (
             <RecordHeader
                 workout={w}
+                setCurrentWorkout={props.setCurrentWorkout}
             />
         ))
     )

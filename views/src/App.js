@@ -15,6 +15,7 @@ import Login from './components/auth/Login';
 import Axios from 'axios';
 import { useEffect } from 'react';
 import { decode } from "jsonwebtoken";
+import WorkoutDisplay from './components/workout/WorkoutDisplay';
 const URL = process.env.REACT_APP_URL;
 
 
@@ -23,9 +24,8 @@ function App() {
     const [isAuth, setIsAuth] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [user, setUser] = useState(null);
-
+    const [currentWorkout, setCurrentWorkout ] = useState({});
     
-
     let getUserProfile = (token) => {
         // console.log(`TOKEN??:: ${token}`)
         //AXIOS GET , return user details
@@ -69,6 +69,7 @@ function App() {
                     getUserProfile(token);
                 }
             }
+            console.log(currentWorkout);
         }, []
     );
 
@@ -93,10 +94,16 @@ function App() {
                                 <Home
                                     user={user}
                                     isAuth={isAuth}
+                                    setCurrentWorkout={setCurrentWorkout}
                                 />
                             </Route>
                             <Route path="/records">
                                 <RecordWorkouts />
+                            </Route>
+                            <Route path="/workout">
+                                <WorkoutDisplay
+                                    currentWorkout = {currentWorkout}
+                                 />
                             </Route>
                             <Route path="/register" exact>
                                 <Register />
@@ -106,17 +113,18 @@ function App() {
                                     isAuth ? <Home
                                         user={user}
                                         isAuth={isAuth}
+                                        setCurrentWorkout={setCurrentWorkout}
                                     />
                                         : <Login
                                             loginHandler={loginHandler}
                                         />
                                 }
-
                             </Route>
                             <Route path="/" exact>
                                 <Home
                                     user={user}
                                     isAuth={isAuth}
+                                    setCurrentWorkout={setCurrentWorkout}
                                 />
                             </Route>
                         </Container>

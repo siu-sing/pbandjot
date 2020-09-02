@@ -5,7 +5,7 @@ import { Fade as Anim } from "react-awesome-reveal";
 import RecordList from './records/RecordList';
 
 
-export default function Home({ user, isAuth }) {
+export default function Home({ user, isAuth, setCurrentWorkout }) {
     // let {username} = props.user;
 
     let display = null;
@@ -33,11 +33,12 @@ export default function Home({ user, isAuth }) {
                         </Row>
                         <Row className="justify-content-center">
                             <Col
-                                md={{ span: 8 }} xs={{ span: 8 }}
+                                md={{ span: 8 }} xs={{ span: 10 }}
                                 className="text-center">
                                 <RecordList
                                     user={user}
                                     isAuth={isAuth}
+                                    setCurrentWorkout={setCurrentWorkout}
                                 />
                             </Col>
                         </Row>

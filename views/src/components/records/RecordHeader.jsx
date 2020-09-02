@@ -1,15 +1,30 @@
 import React from 'react'
 import { Row, Card, Col } from 'react-bootstrap';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 
 export default function RecordHeader(props) {
 
+    const history = useHistory();
+
     let workout = props.workout;
+    let cardClicked = () => {
+        // console.log("SETTING CURRENT WORKOUT");
+        // console.log(workout);
+        props.setCurrentWorkout(workout);
+        history.push("/workout")
+        
+    }
 
     return (
         <Row>
             <Col>
-                <Card as="a" href="/records" className="record__card my-1">
+                <Card
+                    as="a"
+                    href="#"
+                    className="record__card my-1"
+                    onClick={cardClicked}
+                >
                     <Card.Header>
                         <Row>
                             <Col className="text-left my-auto">
