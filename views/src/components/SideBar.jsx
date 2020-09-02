@@ -17,6 +17,7 @@ export default function SideBar(props) {
         <div>
             {/* <LogoDisplay size={30} /> */}
             <Link to="/home" onClick={props.closeMenu} className="bm-item">Home</Link>
+            <Link to="/calculator" onClick={props.closeMenu} className="bm-item">Calculator</Link>
             {
                 isAuth && <>
                     <Link to="/records" onClick={props.closeMenu} className="bm-item">Records</Link>
