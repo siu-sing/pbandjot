@@ -5,11 +5,32 @@ import WorkoutRecord from './WorkoutRecord'
 import { useHistory } from "react-router-dom";
 import back_icon from '../../back_icon.svg'
 import NewRecordForm from './NewRecordForm';
+import Axios from 'axios';
+const URL = process.env.REACT_APP_URL;
 
 export default function WorkoutDisplay(props) {
 
+    //Back arrow display - there must be a better way to do this
+    let homeArrow = (
+        <a href="/home">
+            <img src={back_icon} alt="back" width="30px" className="top__left__padded" />
+        </a>
+    )
+
+
     const history = useHistory();
-    let workout = props.currentWorkout;
+    // let workout = props.currentWorkout;
+    const [workout, setWorkout] = useState(props.currentWorkout)
+
+    //FETCH WORKOUT RECORDS
+    let fetchWorkoutRecords = async () => {
+        let token = localStorage.getItem("token");
+        let getRes = await Axios.get(`${URL}/records/allworkouts/${workout._id}`,
+            { headers: { "x-auth-token": token } });
+        setWorkout(getRes.data.workouts[0]);
+    }
+    //SORT
+    //SET CURRENT WORKOUT
 
     //Sort function
     let compareRecords = (a, b) => {
@@ -22,10 +43,12 @@ export default function WorkoutDisplay(props) {
         }
     }
 
+    //If no current workout, send user back to home
     if (Object.keys(workout).length < 1) {
         history.push("/home")
     }
 
+    //If got current workout, sort and display workout records
     let workoutRecordDisplay = null;
     if (Object.keys(workout).length > 0) {
         let records = workout.records;
@@ -43,16 +66,11 @@ export default function WorkoutDisplay(props) {
         )
     }
 
-    let homeArrow = (
-        <a href="/home">
-            <img src={back_icon} alt="back" width="30px" className="top__left__padded" />
-        </a>
-    )
-
+    //Setting up Modal for record Form
     const [modalShow, setModalShow] = useState(false);
     const handleShowModal = () => setModalShow(true);
     const handleCloseModal = () => setModalShow(false);
-
+    //Setting main display for workout page
     let display =
         (
             <>
@@ -104,10 +122,27 @@ export default function WorkoutDisplay(props) {
             </>
         )
 
+
     let mainDisplay = "";
     if (workout) {
         mainDisplay = display;
     }
+
+    //Handling submit from modal form
+    let addRecord = async (recordData) => {
+
+        let token = localStorage.getItem("token");
+
+        recordData.workout_id = workout._id;
+
+        let postRes = await Axios.post(`${URL}/records`,
+        recordData,
+            { headers: { "x-auth-token": token } }
+        );
+
+        fetchWorkoutRecords();
+    }
+
 
     let modalDisplay = (
         <Modal
@@ -115,12 +150,13 @@ export default function WorkoutDisplay(props) {
             onHide={handleCloseModal}
             centered
         >
-            <Modal.Body
-            >
-                <NewRecordForm workout_type = {workout.workout_type}/>
+            <Modal.Body>
+                <NewRecordForm
+                    workout_type={workout.workout_type}
+                    handleCloseModal={handleCloseModal}
+                    addRecord={addRecord}
+                />
             </Modal.Body>
-
-
         </Modal>
     )
 

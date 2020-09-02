@@ -38,7 +38,7 @@ export default function RecordHeader(props) {
                                 </Row>
                                 <Row>
                                     <Col className="small font-weight-light">
-                                        {workout.latest_record_date ? moment(workout.latest_record_date).format("DD MMM") : ""}
+                                        {workout.pb_date ? moment(workout.pb_date).format("DD MMM") : ""}
                                     </Col>
                                 </Row>
 

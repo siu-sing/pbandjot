@@ -15,19 +15,29 @@ export default function RecordList(props) {
             switch (workout_type) {
                 case "weightlifting":
                     let pbwt = records[0].pb_weight;
+                    let pbdt = records[0].pb_date;
                     records.forEach(r => {
-                        if (pbwt < r.pb_weight) pbwt = r.pb_weight
+                        if (pbwt < r.pb_weight) {
+                            pbwt = r.pb_weight
+                            pbdt = r.pb_date
+                        } 
                     })
-                    return `${pbwt} lb`
+                    return { pb_value: `${pbwt} lb`, pb_date: pbdt }
                 case "benchmark":
                     let pbtime = 86400;
+                    let pbdt_nw = records[0].pb_date;
                     records.forEach(r => {
                         let totalTime = r.pb_time_min * 60 + r.pb_time_sec;
                         if (pbtime > totalTime) {
                             pbtime = totalTime
+                            pbdt_nw = r.pb_date
                         }
                     })
-                    return `${Math.floor(pbtime / 60)}:${(pbtime % 60).toString().padStart(2, '0')}`
+                    return {
+                        pb_value: `${Math.floor(pbtime / 60)}:${(pbtime % 60).toString().padStart(2, '0')}`,
+                        pb_date: pbdt_nw
+                    }
+                    
                     break;
                 default:
                     break;
@@ -87,7 +97,10 @@ export default function RecordList(props) {
 
         //Set PB and latest record date
         workouts.forEach(w => {
-            w.pb_value = getPb(w.records, w.workout_type);
+            
+            let pbDetails = getPb(w.records, w.workout_type);
+            w.pb_value = pbDetails.pb_value;
+            w.pb_date = pbDetails.pb_date;
             w.latest_record_date = getLatestRecordDate(w.records);
         });
 
@@ -106,6 +119,8 @@ export default function RecordList(props) {
             <RecordHeader
                 workout={w}
                 setCurrentWorkout={props.setCurrentWorkout}
+                key={w._id}
+                // fetchRecords={fetchRecords}
             />
         ))
     )

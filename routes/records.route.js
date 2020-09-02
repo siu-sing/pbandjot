@@ -88,7 +88,7 @@ router.get('/workouts/:workout_id', hasToken, async (req, res) => {
         let records = await Record.find({
             user_id: req.user.id,
             workout_id: req.params.workout_id
-        })
+        }).populate('workout_id')
         res.status(200).json({
             count: records.length,
             records,
@@ -107,6 +107,37 @@ router.get('/allworkouts', hasToken, async (req, res) => {
     //FOR EACH WORKOUT, GET USER RECORDS AND ADD INTO WORKOUT OBJ
     try {
         let workouts = await Workout.aggregate([
+            {
+                $lookup: {
+                    from: "records",
+                    localField: "_id",
+                    foreignField: "workout_id",
+                    as: "records"
+                    }
+                }
+            ])
+        res.status(200).json({
+            workouts
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Unable to get records for all workouts."
+        })
+    }
+});
+
+
+router.get('/allworkouts/:workout_id', hasToken, async (req, res) => {
+
+    //GET ALL WORKOUTS
+    //FOR EACH WORKOUT, GET USER RECORDS AND ADD INTO WORKOUT OBJ
+    console.log(req.params.workout_id)
+    try {
+        let workouts = await Workout.aggregate([
+            {
+                $match: { _id: new mongoose.Types.ObjectId(req.params.workout_id) }
+            },
             {
                 $lookup: {
                     from: "records",

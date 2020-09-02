@@ -1,24 +1,47 @@
 import React from 'react'
 import { useFormik } from 'formik';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import * as Yup from 'yup';
+
 
 export default function NewRecordForm(props) {
 
-    console.log(props.workout_type)
+    let currentDate = new Date().toISOString().substring(0, 10);
 
     const { getFieldProps, handleSubmit, values, errors, touched } = useFormik({
         initialValues: {
-            pbDate: "",
+            pbDate: currentDate,
             pbWeight: null,
             pbTimeMin: null,
             pbTimeSec: null,
         },
 
+        validationSchema: Yup.object().shape({
+            pbDate: Yup.date(),
+            pbWeight: Yup.number(),
+            pbTimeMin: Yup.number().nullable(),
+            pbTimeSec: Yup.number().max(59).nullable(),
+        }),
+
         onSubmit(values) {
+            props.handleCloseModal()
             console.log(values)
+            //Reshape to prepare for submission
+            let recordData = {
+                pb_date: values.pbDate,
+                pb_weight: values.pbWeight,
+                pb_time_min: values.pbTimeMin,
+                pb_time_sec: values.pbTimeSec,
+            }
+
+            console.log(recordData)
+            //Add record
+            props.addRecord(recordData);
+
         }
     })
 
+    //Time form is only displayed for non weightlifting workouts
     let timeFormDisplay = (
         <Row className="justify-content-center">
             <Col
@@ -31,7 +54,7 @@ export default function NewRecordForm(props) {
                         <Col>
                             <Form.Control
                                 type="number"
-                                placeHolder="00"
+                                placeHolder="min"
                                 className="text-center"
                                 {...getFieldProps("pbTimeMin")}
                             />
@@ -39,7 +62,7 @@ export default function NewRecordForm(props) {
                         <Col>
                             <Form.Control
                                 type="number"
-                                placeHolder="00"
+                                placeHolder="sec"
                                 className="text-center"
                                 {...getFieldProps("pbTimeSec")}
                             />
@@ -81,7 +104,7 @@ export default function NewRecordForm(props) {
                                 </Form.Group>
                             </Col>
                         </Row>
-                        {props.workout_type!="weightlifting" && timeFormDisplay}
+                        {props.workout_type != "weightlifting" && timeFormDisplay}
                         <Row className="justify-content-center">
                             <Col
                                 className="text-center"
@@ -91,6 +114,7 @@ export default function NewRecordForm(props) {
                                     <Form.Label>Date of PB</Form.Label>
                                     <Form.Control
                                         type="date"
+                                        max={currentDate}
                                         {...getFieldProps("pbDate")}
                                     />
                                 </Form.Group>
