@@ -16,6 +16,7 @@ import Axios from 'axios';
 import { useEffect } from 'react';
 import { decode } from "jsonwebtoken";
 import WorkoutDisplay from './components/workout/WorkoutDisplay';
+import Calculator from './components/calculator/Calculator';
 const URL = process.env.REACT_APP_URL;
 
 
@@ -124,6 +125,9 @@ function App() {
                                             loginError={loginError}
                                         />
                                 }
+                            </Route>
+                            <Route path="/calculator">
+                                <Calculator />
                             </Route>
                             <Route path="/" exact>
                                 <Home
