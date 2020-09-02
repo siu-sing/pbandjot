@@ -15,8 +15,8 @@ code {
 html,
 body,
 #outer-container {
-    height: 100%;
-    font-family: 'Noto Sans TC', sans-serif;
+	height: 100%;
+	font-family: 'Noto Sans TC', sans-serif;
 }
 
 .bm-burger-button {
@@ -59,11 +59,11 @@ body,
 
 /* General sidebar styles */
 .bm-menu {
-    /* background: #f6f7d3; */
-    background: rgba(0, 0, 0, 0.92);
+	/* background: #f6f7d3; */
+	background: rgba(0, 0, 0, 0.92);
 	padding: 0.8em 0.2em 0;
-    font-size: 1.15em;
-    font-family: 'Noto Sans TC', sans-serif;
+	font-size: 1.15em;
+	font-family: 'Noto Sans TC', sans-serif;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -79,8 +79,8 @@ body,
 
 /* Individual item */
 .bm-item {
-    display: block;
-    color: #F9C430;
+	display: block;
+	color: #F9C430 !important;
 }
 
 /* Styling of overlay */
@@ -109,24 +109,79 @@ input[type=number] {
 	/* Firefox */
 }
 
-h1,h2,h3,h4,h5,html,body {
-    font-family: 'Noto Sans TC', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+html,
+body {
+	font-family: 'Noto Sans TC', sans-serif;
 }
 
+.yellow__text {
+    color: #FFD51F;
+}
+
+.red__text {
+    color: red;
+}
+
+.yellow__background {
+    position: relative;
+    color: #000000;
+    background-image: linear-gradient(145deg, #FFD51F 50%, #F9C430 50%);
+}
 
 .square {
 	/* background-color: #FFD51F !important; */
-    background-image: linear-gradient(145deg, #FFD51F 50%, #F9C430 50%);
-    border-radius: 25px;
+	background-image: linear-gradient(145deg, #FFD51F 50%, #F9C430 50%);
+	border-radius: 25px;
 }
 
 html body {
-    color: #ffffff;
-    height:100%;
-    background-color: #000000
+	color: #ffffff;
+	height: 100%;
+	background-color: #000000
 }
 
 
-.record__card{
+.record__card {
     background-color: #343434 !important;
+    /* color: #ffffff */
 }
+
+a.record__card {
+	color: #ffffff !important;
+	text-decoration: none !important;
+}
+
+.top__left__padded {
+	position: absolute;
+	left: 3px;
+    top: 5px;
+    /* border: solid 1px red; */
+    padding: 0 0;
+    z-index: 10;
+}
+
+.top__right {
+	position: absolute;
+	right: 1em;
+    top: 1em;
+}
+
+.lead {
+    font-size: 200%;
+}
+
+.modal-backdrop.show {
+    opacity: 0.8;
+}
+.black__background {
+    background-color: #0f0f0f8f
+}
+
+.modal-content {
+    background-color: #0f0f0ffa !important;
+  }

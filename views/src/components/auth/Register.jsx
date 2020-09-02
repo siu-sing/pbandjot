@@ -1,4 +1,4 @@
-import { Form } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import React, { Component } from 'react'
 import Credentials from './registerForms/Credentials';
 import Details from './registerForms/Details';
@@ -7,9 +7,10 @@ import Axios from 'axios'
 import CredentialsForm from './registerForms/CredentialsForm';
 import ContactForm from './registerForms/ContactForm';
 import DetailsForm from './registerForms/DetailsForm';
+import { withRouter } from "react-router-dom";
 const URL = process.env.REACT_APP_URL;
 
-export default class Register extends Component {
+class Register extends Component {
     state = {
         step: 1,
         firstname: null,
@@ -53,7 +54,7 @@ export default class Register extends Component {
         }
         return obj
     }
-    
+
     registerUser = () => {
         //AXIOS CALL TO REGISTER
         //registerUser(request_body)
@@ -64,14 +65,15 @@ export default class Register extends Component {
         console.log(userDetails)
 
         Axios.post(`${URL}/auth/register`, userDetails)
-            .then((res)=> {
+            .then((res) => {
                 console.log(res.data)
-                localStorage.setItem("token",res.data.token)
+                localStorage.setItem("token", res.data.token)
+                this.props.history.push("/home")
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.log(err);
             })
-        
+
     }
 
     // display = (<Credentials />
@@ -101,13 +103,31 @@ export default class Register extends Component {
         }
         return (
             <>
-                <Form>
-                    <Form.Row>
-                        {display}
-                    </Form.Row>
-                </Form>
+                <Row>
+                    <Col>
+                        <Row className="justify-content-center yellow__text my-3">
+                            <Col
+                                className="text-center"
+                            >
+                                <h1>You're on your way to gains city.</h1>
+                            </Col>
+                        </Row>
+                        <Row className="justify-content-center">
+                            <Col
+                                md={{ span: 4 }} xs={{ span: 10 }}
+                            >
+                                <Form>
+                                    {/* <Form.Row> */}
+                                    {display}
+                                    {/* </Form.Row> */}
+                                </Form>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
             </>
         )
     }
 }
 
+export default withRouter(Register);

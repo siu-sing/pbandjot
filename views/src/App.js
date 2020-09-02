@@ -4,6 +4,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    useHistory,
 } from "react-router-dom";
 import RecordWorkouts from './components/records/RecordWorkouts';
 import Home from './components/Home';
@@ -14,6 +15,7 @@ import Login from './components/auth/Login';
 import Axios from 'axios';
 import { useEffect } from 'react';
 import { decode } from "jsonwebtoken";
+import WorkoutDisplay from './components/workout/WorkoutDisplay';
 const URL = process.env.REACT_APP_URL;
 
 
@@ -22,7 +24,9 @@ function App() {
     const [isAuth, setIsAuth] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [user, setUser] = useState(null);
-
+    const [currentWorkout, setCurrentWorkout ] = useState({});
+    const [loginError, setLoginError] = useState("");
+    
     let getUserProfile = (token) => {
         // console.log(`TOKEN??:: ${token}`)
         //AXIOS GET , return user details
@@ -44,16 +48,19 @@ function App() {
                 localStorage.setItem("token", res.data.token)
                 getUserProfile(res.data.token);
                 setIsAuth(true);
+                setLoginError("");
             })
             .catch((err) => {
+                console.log("ERROR HERE")
                 console.log(err);
+                setLoginError(err.response.data.message)
             })
     }
 
     let logoutHandler = () => {
-
+        localStorage.clear("token")
+        setIsAuth(false);
     }
-
     useEffect(
         () => {
             let token = localStorage.getItem("token");
@@ -66,7 +73,8 @@ function App() {
                     getUserProfile(token);
                 }
             }
-        }, []
+            console.log(currentWorkout);
+        }, [isAuth]
     );
 
 
@@ -75,21 +83,31 @@ function App() {
         // id="outer-container"
         >
             <Router>
-                <Navigation isAuth={isAuth} />
+                <Navigation 
+                    isAuth={isAuth} 
+                    logoutHandler = {logoutHandler}
+                    />
+                <div className="top__right font-italic">{ user && (`@${user.username}`)}</div>
                 <div
                     // id="page-wrap"
                     className="pt-5"
                 >
                     <Switch>
                         <Container>
-                            <Route path="/" exact>
+                            <Route path="/home" exact>
                                 <Home
                                     user={user}
                                     isAuth={isAuth}
+                                    setCurrentWorkout={setCurrentWorkout}
                                 />
                             </Route>
                             <Route path="/records">
                                 <RecordWorkouts />
+                            </Route>
+                            <Route path="/workout">
+                                <WorkoutDisplay
+                                    currentWorkout = {currentWorkout}
+                                 />
                             </Route>
                             <Route path="/register" exact>
                                 <Register />
@@ -99,12 +117,20 @@ function App() {
                                     isAuth ? <Home
                                         user={user}
                                         isAuth={isAuth}
+                                        setCurrentWorkout={setCurrentWorkout}
                                     />
                                         : <Login
                                             loginHandler={loginHandler}
+                                            loginError={loginError}
                                         />
                                 }
-
+                            </Route>
+                            <Route path="/" exact>
+                                <Home
+                                    user={user}
+                                    isAuth={isAuth}
+                                    setCurrentWorkout={setCurrentWorkout}
+                                />
                             </Route>
                         </Container>
                     </Switch>

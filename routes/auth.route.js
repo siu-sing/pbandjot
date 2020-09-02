@@ -69,7 +69,7 @@ router.post("/login", async (req, res) => {
 
         if (!user) {
             return res.status(400).json({
-                message: "User and password not found."
+                message: "User and/or password not found."
             });
         }
 
@@ -78,7 +78,7 @@ router.post("/login", async (req, res) => {
 
         if (!isMatch) {
             return res.status(400).json({
-                message: "User and password not found."
+                message: "User and/or password not found."
             });
         }
 

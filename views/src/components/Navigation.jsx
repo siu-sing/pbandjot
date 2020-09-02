@@ -32,6 +32,7 @@ export default function Navigation(props) {
                 <SideBar
                     closeMenu={closeMenu}
                     isAuth={props.isAuth}
+                    logoutHandler = {props.logoutHandler}
                 />
             </Menu>
         </>

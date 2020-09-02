@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 
 export default function DetailsForm(props) {
     const { getFieldProps, handleSubmit, values, errors, touched } = useFormik({
@@ -38,53 +38,91 @@ export default function DetailsForm(props) {
         }
     })
     return (
-        <div>
-            <Form.Group controlId="exampleForm.ControlSelect1">
-                <Form.Control
-                    as="select"
-                    name="gender"
-                    {...getFieldProps("gender")}
+        <Row>
+            <Col>
+                <Row className="mt-3">
+                    <Col>
+                        <Form.Group className="text-center">
+                            <Form.Control
+                                className="text-center"
+                                as="select"
+                                name="gender"
+                                {...getFieldProps("gender")}
 
-                >
-                    <option disabled selected>Gender</option>
-                    <option value="M">Male</option>
-                    <option value="F">Female</option>
-                </Form.Control>
-                <Form.Text className="text-muted">
-                    For tracking your Rx workouts.
-                    </Form.Text>
-                {errors.gender && touched.gender ? errors.gender : null}
-            </Form.Group>
-            <Form.Group>
-                <Form.Control
-                    type="number"
-                    placeholder="Height in cm"
-                    {...getFieldProps("height")}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Form.Control
-                    type="number"
-                    placeholder="Weight in kg"
-                    {...getFieldProps("weight")}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Form.Control
-                    type="text"
-                    placeholder="Gym name"
-                    {...getFieldProps("home_gym")}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Date of Birth</Form.Label>
-                <Form.Control
-                    type="date"
-                    name="date_of_birth"
-                    {...getFieldProps("date_of_birth")}
-                />
-            </Form.Group>
-            <Button onClick={handleSubmit}>Register</Button>
-        </div>
+                            >
+                                <option disabled selected>Gender</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </Form.Control>
+                            <Form.Text className="text-muted">
+                                For tracking your Rx workouts.
+                            </Form.Text>
+                            <Form.Text>
+                                {errors.gender && touched.gender ? errors.gender : null}
+                            </Form.Text>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Group className="text-center">
+                            <Form.Text className="mb-1">(Optional)</Form.Text>
+                            <Form.Control
+                                className="text-center"
+                                type="number"
+                                placeholder="Height in cm"
+                                {...getFieldProps("height")}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Group>
+                            <Form.Control
+                                className="text-center"
+                                type="number"
+                                placeholder="Weight in kg"
+                                {...getFieldProps("weight")}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Group>
+                            <Form.Control
+                                className="text-center"
+                                type="text"
+                                placeholder="Gym name"
+                                {...getFieldProps("home_gym")}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Group className="text-center">
+                            <Form.Label className="mb-0">Date of Birth</Form.Label>
+                            <Form.Text>(Optional)</Form.Text>
+                            <Form.Control
+                                type="date"
+                                name="date_of_birth"
+                                {...getFieldProps("date_of_birth")}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Button
+                            variant="warning"
+                            block
+                            onClick={handleSubmit}
+                        >Register</Button>
+                    </Col>
+                </Row>
+            </Col>
+        </Row>
     )
 }

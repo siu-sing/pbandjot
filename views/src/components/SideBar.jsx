@@ -4,23 +4,23 @@ import LogoDisplay from './LogoDisplay';
 
 export default function SideBar(props) {
 
+    let isAuth = props.isAuth;
     const history = useHistory();
 
-    let logoutHandler = () => {
-        localStorage.clear("token")
+    let sideBarLogoutHandler = () => {
         props.closeMenu();
-        history.push("/")
+        props.logoutHandler();
+        history.push("/home")
     }
-    let isAuth = props.isAuth;
 
     return (
         <div>
             {/* <LogoDisplay size={30} /> */}
-            <Link to="/" onClick={props.closeMenu} className="bm-item">Home</Link>
+            <Link to="/home" onClick={props.closeMenu} className="bm-item">Home</Link>
             {
                 isAuth && <>
                     <Link to="/records" onClick={props.closeMenu} className="bm-item">Records</Link>
-                    <Link to="#" onClick={logoutHandler} className="bm-item">Logout</Link>
+                    <Link to="#" onClick={sideBarLogoutHandler} className="bm-item">Logout</Link>
                 </>
             }
             {
