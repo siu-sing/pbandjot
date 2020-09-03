@@ -30,6 +30,7 @@ export default function SideBar(props) {
                 </>
             }
             <Link to="/calculator" onClick={props.closeMenu} className="bm-item">Calculator</Link>
+            <Link to="/share" onClick={props.closeMenu} className="bm-item">Share</Link>
         </div>
     )
 }
