@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { decode } from "jsonwebtoken";
 import WorkoutDisplay from './components/workout/WorkoutDisplay';
 import Calculator from './components/calculator/Calculator';
+import QRShare from './components/social/QRShare';
 const URL = process.env.REACT_APP_URL;
 
 
@@ -128,6 +129,9 @@ function App() {
                             </Route>
                             <Route path="/calculator">
                                 <Calculator />
+                            </Route>
+                            <Route path="/share">
+                                <QRShare />
                             </Route>
                             <Route path="/" exact>
                                 <Home
