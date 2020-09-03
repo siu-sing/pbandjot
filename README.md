@@ -39,6 +39,10 @@ on 1 Aug 2020)
 During the dev process, extra consideration was given to make the app more friendly for mobile users. Larger buttons,
 multi-stage registration forms, modals for input. Layout is still passable on desktop.
 
+### Existing issues
+- Logging out does not clear the user object immediately, didn't get a chance to figure out why. Will need to refresh page after logging out to fully log out.
+- Home page renders briefly each time rerouting happens.
+
 ### Screenshots
 <table>
 	<tr>
