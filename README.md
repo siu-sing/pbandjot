@@ -26,6 +26,7 @@ on 1 Aug 2020)
     - Enable creation of custom workout to challenge friends
     - Highlight Rx workouts
 - Social Features
+    - Login with Google/Facebook
     - User can create/join groups and add friends to share records/PBs
     - Users can react/comment on others’ records
     - Share on socials - instagram, facebook
