@@ -1,8 +1,12 @@
 # PB&Jot
 
+## SEI 23 Project 4
+
 Record your personal bests.
 
-Workout tracking app built with React, Node, Express and MongoDB. Designed for mobile.
+Workout tracking app to record personal best weights and workout completion times. 
+
+Built with React, Node, Express and MongoDB. Designed for mobile.
 
 ### Planned MVP features at start of project
 - Pre-existing workouts listed on the app for users to choose from.
