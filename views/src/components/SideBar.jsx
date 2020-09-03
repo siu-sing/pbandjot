@@ -19,7 +19,7 @@ export default function SideBar(props) {
             <Link to="/home" onClick={props.closeMenu} className="bm-item">Home</Link>
             {
                 isAuth && <>
-                    <Link to="/records" onClick={props.closeMenu} className="bm-item">Records</Link>
+                    {/* <Link to="/records" onClick={props.closeMenu} className="bm-item">Records</Link> */}
                     <Link to="#" onClick={sideBarLogoutHandler} className="bm-item">Logout</Link>
                 </>
             }
