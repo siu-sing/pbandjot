@@ -19,24 +19,24 @@ on 1 Aug 2020)
 
 ### Additional features (Not done)
 - User Features
-- Enable editing and/or deleting of user records
-- Profile page with workout stats/analytics
-- Avatars
+    - Enable editing and/or deleting of user records
+    - Profile page with workout stats/analytics
+    - Avatars
 - Workout Features
-- Enable creation of custom workout to challenge friends
-- Highlight Rx workouts
+    - Enable creation of custom workout to challenge friends
+    - Highlight Rx workouts
 - Social Features
-- User can create/join groups and add friends to share records/PBs
-- Users can react/comment on others’ records
-- Share on socials - instagram, facebook
-- Group newsfeed (e.g. XXX completed a new workout with a time of 13:49)
+    - User can create/join groups and add friends to share records/PBs
+    - Users can react/comment on others’ records
+    - Share on socials - instagram, facebook
+    - Group newsfeed (e.g. XXX completed a new workout with a time of 13:49)
 
 ### Further Furthers
 - Gym owner features for announcing workouts and do scheduling
 
 ### Designed for mobile
 During the dev process, extra consideration was given to make the app more friendly for mobile users. Larger buttons,
-multi-stage registration forms, modals for input.
+multi-stage registration forms, modals for input. Layout is still passable on desktop.
 
 ### Screenshots
 <table>
