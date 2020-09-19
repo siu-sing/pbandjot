@@ -36,6 +36,7 @@ function App() {
             .then((res) => {
                 setIsAuth(true);
                 setUser(res.data.user);
+                console.log("RESDATAUSER")
                 console.log(res.data.user);
             }).catch((err) => {
                 console.log(err)
@@ -64,22 +65,34 @@ function App() {
         setIsAuth(false);
         setUser(null);
     }
+
+
+    let refreshToken = () => {
+        let token = localStorage.getItem("token");
+        if (!(token == null)) {
+            //Get user profile each time page reloads
+            let decodedToken = decode(token);
+            if (!decodedToken) {
+                localStorage.removeItem("token");
+            } else {
+                getUserProfile(token);
+            }
+        }
+        console.log(currentWorkout);
+    }
+
+    // refreshToken();
+
     useEffect(
         () => {
-            let token = localStorage.getItem("token");
-            if (!(token == null)) {
-                //Get user profile each time page reloads
-                let decodedToken = decode(token);
-                if (!decodedToken) {
-                    localStorage.removeItem("token");
-                } else {
-                    getUserProfile(token);
-                }
-            }
-            console.log(currentWorkout);
+            refreshToken();
         }, [isAuth]
     );
+    
 
+    
+        //IF IS AUTH, FETCH USER PBS
+        console.log(`IS AUTH: ${isAuth}`)
 
     return (
         <div

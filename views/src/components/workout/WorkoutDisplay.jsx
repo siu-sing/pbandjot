@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Row, Col, Button, Modal } from 'react-bootstrap'
 import WorkoutIconDisplay from './WorkoutIconDisplay'
 import WorkoutRecord from './WorkoutRecord'
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import back_icon from '../../back_icon.svg'
 import NewRecordForm from './NewRecordForm';
 import Axios from 'axios';
@@ -12,9 +12,9 @@ export default function WorkoutDisplay(props) {
 
     //Back arrow display - there must be a better way to do this
     let homeArrow = (
-        <a href="/home">
+        <Link to="/home">
             <img src={back_icon} alt="back" width="30px" className="top__left__padded" />
-        </a>
+        </Link>
     )
 
 
@@ -136,7 +136,7 @@ export default function WorkoutDisplay(props) {
         recordData.workout_id = workout._id;
 
         let postRes = await Axios.post(`${URL}/records`,
-        recordData,
+            recordData,
             { headers: { "x-auth-token": token } }
         );
 

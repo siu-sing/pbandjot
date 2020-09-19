@@ -11,9 +11,6 @@ export default function Home({ user, isAuth, setCurrentWorkout }) {
     let display = null;
     let logoSize = isAuth ? 120 : 180;
 
-    //IF IS AUTH, FETCH USER PBS
-
-
     return (
         <>
             {/* <Anim cascade duration={500}> */}
