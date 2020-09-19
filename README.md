@@ -44,8 +44,8 @@ During the dev process, extra consideration was given to make the app more frien
 multi-stage registration forms, modals for input. Layout is still passable on desktop.
 
 ### Existing issues
-- Logging out does not clear the user object immediately, didn't get a chance to figure out why. Will need to refresh page after logging out to fully log out.
-- Home page renders briefly each time rerouting happens.
+- ~~Logging out does not clear the user object immediately, didn't get a chance to figure out why. Will need to refresh page after logging out to fully log out.~~ Fixed: https://github.com/siu-sing/pbandjot/commit/e7a5e8d93b6d3d25effb34589a14a8decbc12d24
+- ~~Home page renders briefly each time rerouting happens.~~ Fixed: https://github.com/siu-sing/pbandjot/commit/6c1e7dbf6224ad761e8852b368e53de85c26f47a (need to use `<Link To="" />` instead of `<a>`)
 
 ### Screenshots
 <table>
