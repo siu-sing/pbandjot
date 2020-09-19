@@ -62,6 +62,7 @@ function App() {
     let logoutHandler = () => {
         localStorage.clear("token")
         setIsAuth(false);
+        setUser(null);
     }
     useEffect(
         () => {
