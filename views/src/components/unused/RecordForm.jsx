@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Row, Col, Button } from 'react-bootstrap'
-import WeightForm from './WeightForm'
-import TimeForm from './TimeForm'
-import { useEffect } from 'react';
+
 
 export default function RecordForm(props) {
 

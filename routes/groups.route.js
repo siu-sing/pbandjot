@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const hasToken = require("../config/config.js");
 const mongoose = require("mongoose");
+const { findByIdAndUpdate } = require("../model/user.model");
 
 
 //ALL ROUTES PRIVATE, MUST BE VIA A USER ACCOUNT
@@ -21,7 +22,10 @@ router.post('/', hasToken, async (req, res) => {
     let group_admin = req.user.id;
     try {
         let group = new Group({
-            group_name, group_description, group_members, group_admin
+            group_name,
+            group_description,
+            group_members,
+            group_admin
         })
         await group.save();
 
@@ -42,14 +46,68 @@ router.post('/', hasToken, async (req, res) => {
 router.get('/', hasToken, async (req, res) => {
     try {
         let groups = await Group.find({
-            
+            group_members: req.user.id
+        })
+        res.status(201).json({
+            counts: groups.length,
+            groups
         })
     } catch (error) {
-        
+        console.log(error);
+        res.status(500).json({
+            message: "Unable to get user's groups."
+        })
     }
 });
 
+//CREATE GROUP WORKOUT
+//ONLY FOR USERS WITHIN GROUP
+//Adds the workout to the group workout array
+router.post('/workouts', hasToken, async (req, res) => {
+    //Creates a new workout
+    let {
+        workout_name,
+        workout_type,
+        description,
+        prescribed_male,
+        prescribed_female,
+    } = req.body
+    let owner = req.user.id;
+    let groupId = req.body.group_id;
+
+    try {
+
+        let workout = new Workout({
+            workout_name,
+            workout_type,
+            description,
+            prescribed_male,
+            prescribed_female,
+            owner,
+        });
+
+        let workoutRes = await workout.save();
+        let workoutId = workoutRes._id;
+
+        let group = await Group.findByIdAndUpdate(groupId,{
+            $push: {group_workouts: workoutId}
+        })
+
+        res.status(201).json({
+            message: "Group workout created successfully",
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Unable to create workout."
+        })
+    }
+
+});
 
 
-
-
+//ADMIN POWERS
+//ADD USERS TO GROUP
+//DELETE GROUP
+//DELETE WORKOUTS
+module.exports = router;
