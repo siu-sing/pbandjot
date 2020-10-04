@@ -6,7 +6,6 @@ import {
     Route,
     useHistory,
 } from "react-router-dom";
-import RecordWorkouts from './components/records/RecordWorkouts';
 import Home from './components/Home';
 import { Container } from 'react-bootstrap';
 import Navigation from './components/Navigation';
@@ -116,9 +115,6 @@ function App() {
                                     isAuth={isAuth}
                                     setCurrentWorkout={setCurrentWorkout}
                                 />
-                            </Route>
-                            <Route path="/records">
-                                <RecordWorkouts />
                             </Route>
                             <Route path="/workout">
                                 <WorkoutDisplay
