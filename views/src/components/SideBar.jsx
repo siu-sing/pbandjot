@@ -21,6 +21,7 @@ export default function SideBar(props) {
                 isAuth && <>
                     {/* <Link to="/records" onClick={props.closeMenu} className="bm-item">Records</Link> */}
                     <Link to="#" onClick={sideBarLogoutHandler} className="bm-item">Logout</Link>
+                    <Link to="/groups" onClick={props.closeMenu} className="bm-item">Groups</Link>
                 </>
             }
             {

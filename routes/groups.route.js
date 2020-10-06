@@ -47,7 +47,7 @@ router.get('/', hasToken, async (req, res) => {
     try {
         let groups = await Group.find({
             group_members: req.user.id
-        })
+        }).populate("group_workouts group_members group_admin")
         res.status(201).json({
             counts: groups.length,
             groups
