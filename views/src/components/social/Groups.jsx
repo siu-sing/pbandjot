@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 import GroupHeader from './GroupHeader';
 import { Button, Col, Row } from 'react-bootstrap';
+import GroupFeed from './GroupFeed';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useHistory,
+} from "react-router-dom";
+import GroupList from './GroupList';
+import GroupDetails from './GroupDetails';
 const URL = process.env.REACT_APP_URL;
 
 
@@ -27,24 +36,13 @@ export default function Groups() {
         fetchGroups();
     }, [])
 
-    //Display groups
-    let groupDisplay = (
-        groupList.map(g => (
-            <GroupHeader group={g} />
-        ))
-    )
-
     return (
         <div>
-            {groupDisplay}
-            <Row className="justify-content-center p-2">
-                <Col
-                    md={{ span: 10 }} xs={{ span: 10 }}
-                >
-                    <Button variant="warning" block>Create new group!</Button>
-
-                </Col>
-            </Row>
+            <Switch>
+                <Route path="/groups/:id/details" children={<GroupDetails groupList={groupList} />} />
+                <Route path="/groups/:id" children={<GroupFeed groupList={groupList} />} />
+                <Route path="/groups" children={<GroupList groupList={groupList} exact/>} />
+            </Switch>
         </div>
     )
 }

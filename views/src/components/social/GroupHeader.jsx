@@ -3,7 +3,9 @@ import { Card, Row, Col } from 'react-bootstrap';
 
 export default function GroupHeader(props) {
 
+
     let group = props.group;
+    let clickGroup = props.clickGroup;
 
     return (
         <Row>
@@ -11,7 +13,10 @@ export default function GroupHeader(props) {
                 <Card className="record__card my-1">
                     <Row>
                         <Col>
-                            <Card.Header className="text-center">
+                            <Card.Header
+                                className="text-center"
+                                onClick={() => clickGroup(group)}
+                            >
                                 {group.group_name}
                             </Card.Header>
                         </Col>
