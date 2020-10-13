@@ -6,7 +6,6 @@ import {
     Route,
     useHistory,
 } from "react-router-dom";
-import RecordWorkouts from './components/records/RecordWorkouts';
 import Home from './components/Home';
 import { Container } from 'react-bootstrap';
 import Navigation from './components/Navigation';
@@ -18,6 +17,7 @@ import { decode } from "jsonwebtoken";
 import WorkoutDisplay from './components/workout/WorkoutDisplay';
 import Calculator from './components/calculator/Calculator';
 import QRShare from './components/social/QRShare';
+import Groups from './components/social/Groups';
 const URL = process.env.REACT_APP_URL;
 
 
@@ -117,9 +117,6 @@ function App() {
                                     setCurrentWorkout={setCurrentWorkout}
                                 />
                             </Route>
-                            <Route path="/records">
-                                <RecordWorkouts />
-                            </Route>
                             <Route path="/workout">
                                 <WorkoutDisplay
                                     currentWorkout = {currentWorkout}
@@ -146,6 +143,9 @@ function App() {
                             </Route>
                             <Route path="/share">
                                 <QRShare />
+                            </Route>
+                            <Route path="/groups">
+                                <Groups />
                             </Route>
                             <Route path="/" exact>
                                 <Home

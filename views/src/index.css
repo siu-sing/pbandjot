@@ -120,17 +120,17 @@ body {
 }
 
 .yellow__text {
-    color: #FFD51F;
+	color: #FFD51F;
 }
 
 .red__text {
-    color: red;
+	color: red;
 }
 
 .yellow__background {
-    position: relative;
-    color: #000000;
-    background-image: linear-gradient(145deg, #FFD51F 50%, #F9C430 50%);
+	position: relative;
+	color: #000000;
+	background-image: linear-gradient(145deg, #FFD51F 50%, #F9C430 50%);
 }
 
 .square {
@@ -147,8 +147,8 @@ html body {
 
 
 .record__card {
-    background-color: #343434 !important;
-    /* color: #ffffff */
+	background-color: #343434 !important;
+	/* color: #ffffff */
 }
 
 a.record__card {
@@ -159,29 +159,37 @@ a.record__card {
 .top__left__padded {
 	position: absolute;
 	left: 3px;
-    top: 5px;
-    /* border: solid 1px red; */
-    padding: 0 0;
-    z-index: 10;
+	top: 5px;
+	/* border: solid 1px red; */
+	padding: 0 0;
+	z-index: 10;
 }
 
 .top__right {
 	position: absolute;
 	right: 1em;
-    top: 1em;
+	top: 1em;
 }
 
 .lead {
-    font-size: 150%;
+	font-size: 150%;
 }
 
 .modal-backdrop.show {
-    opacity: 0.8;
+	opacity: 0.8;
 }
+
 .black__background {
-    background-color: #0f0f0f8f
+	background-color: #0f0f0f8f
 }
 
 .modal-content {
-    background-color: #0f0f0ffa !important;
-  }
+	background-color: #0f0f0ffa !important;
+}
+
+.float__bottom {
+	position: fixed;
+    bottom: 70px;
+    left: 0;
+    right: 0;
+}

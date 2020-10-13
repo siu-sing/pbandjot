@@ -112,7 +112,7 @@ export default function WorkoutDisplay(props) {
                         {workoutRecordDisplay}
                     </Col>
                 </Row>
-                <Row className="justify-content-center p-2">
+                <Row className="justify-content-center p-2 float__bottom">
                     <Col
                         md={{ span: 6 }} xs={{ span: 6 }}
                     >
