@@ -2,9 +2,13 @@ const router = require("express").Router();
 const User = require("../model/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const hasToken = require("../config/config.js");
+const passport = require('../config/passport')
+const {
+    hasToken,
+} = require("../config/config.js");
 
-//Register
+//LOCAL AUTH
+//Register - add user details and returns a token
 router.post('/register', async (req, res) => {
     let {
         firstname,
@@ -55,7 +59,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-//Login
+//Login - sends a valid token to the user
 router.post("/login", async (req, res) => {
     let {
         username,
@@ -112,18 +116,20 @@ router.get("/user", hasToken, async (req, res) => {
         //Return user object
         res.status(200).json({
             user
-        })      
+        })
     } catch (error) {
         res.status(500).json({
             message: "Unable to find user."
-        })          
+        })
     }
 });
 
 //Check if username exists
-router.get("/usercheck/:username", async (req,res) => {
+router.get("/usercheck/:username", async (req, res) => {
     try {
-        let user = await User.findOne({username: req.params.username})
+        let user = await User.findOne({
+            username: req.params.username
+        })
         let message = user ? "User exists" : "User does not exist";
         res.status(200).json({
             message: message
@@ -131,14 +137,16 @@ router.get("/usercheck/:username", async (req,res) => {
     } catch (error) {
         res.status(500).json({
             message: "Unable to check if user exists."
-        })          
+        })
     }
 });
 
 //Check if email exists
-router.get("/emailcheck/:email", async (req,res) => {
+router.get("/emailcheck/:email", async (req, res) => {
     try {
-        let user = await User.findOne({email: req.params.email})
+        let user = await User.findOne({
+            email: req.params.email
+        })
         let message = user ? "Email exists" : "Email does not exist";
         res.status(200).json({
             message: message
@@ -146,8 +154,45 @@ router.get("/emailcheck/:email", async (req,res) => {
     } catch (error) {
         res.status(500).json({
             message: "Unable to check if email exists."
-        })          
+        })
     }
 });
+
+//GOOGLE AUTH
+//Register with google and return a token
+//Login with google 
+router.get("/google", passport.authenticate("google", {
+    scope: ["profile", "email"]
+}));
+
+//Google redirect
+router.get("/google/redirect", passport.authenticate('google', {
+    failureRedirect: '/api/auth/error',
+}), (req, res) => {
+    //GENERATE NEW TOKEN
+    let payload = {
+        user: {
+            id: req.user._id,
+        },
+    };
+
+    jwt.sign(
+        payload,
+        process.env.SECRET, {
+            expiresIn: 3600000
+        },
+        async (err, token) => {
+            if (err) throw err;
+            res.status(201).json({
+                message: "successfully registered!",
+                token
+            })
+        });
+});
+
+//Error page
+router.get("/error", (req, res) => {
+    res.send("error")
+})
 
 module.exports = router;

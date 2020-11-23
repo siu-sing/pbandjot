@@ -4,13 +4,14 @@ const Workout = require("../model/workout.model");
 const Record = require("../model/record.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const hasToken = require("../config/config.js");
+const {hasToken} = require("../config/config.js");
 const mongoose = require("mongoose");
+const passport = require("../config/passport")
 
 
 //ALL ROUTES ARE PRIVATE, REQUIRES USER TOKEN
 //CREATE ONE RECORD
-router.post('/', hasToken, async (req, res) => {
+router.post('/', passport.authenticate('jwt', {session:false}), async (req, res) => {
     let {
         pb_date,
         pb_weight,
@@ -66,7 +67,7 @@ router.post('/', hasToken, async (req, res) => {
 });
 
 //VIEW ALL RECORDS BY USER
-router.get('/', hasToken, async (req, res) => {
+router.get('/', passport.authenticate('jwt', {session:false}), async (req, res) => {
     try {
         let records = await Record.find({
             user_id: req.user.id
@@ -83,7 +84,7 @@ router.get('/', hasToken, async (req, res) => {
 });
 
 //VIEW RECORD BY WORKOUT - needs token
-router.get('/workouts/:workout_id', hasToken, async (req, res) => {
+router.get('/workouts/:workout_id', passport.authenticate('jwt', {session:false}), async (req, res) => {
     try {
         let records = await Record.find({
             user_id: req.user.id,
@@ -101,7 +102,7 @@ router.get('/workouts/:workout_id', hasToken, async (req, res) => {
 });
 
 //GET USER RECORDS FOR EACH WORKOUT
-router.get('/allworkouts', hasToken, async (req, res) => {
+router.get('/allworkouts', passport.authenticate('jwt', {session:false}), async (req, res) => {
 
     //GET ALL WORKOUTS
     //FOR EACH WORKOUT, GET USER RECORDS AND ADD INTO WORKOUT OBJ
@@ -147,7 +148,7 @@ router.get('/allworkouts', hasToken, async (req, res) => {
 });
 
 
-router.get('/allworkouts/:workout_id', hasToken, async (req, res) => {
+router.get('/allworkouts/:workout_id', passport.authenticate('jwt', {session:false}), async (req, res) => {
 
     //GET ALL WORKOUTS
     //FOR EACH WORKOUT, GET USER RECORDS AND ADD INTO WORKOUT OBJ
@@ -201,7 +202,7 @@ router.get('/allworkouts/:workout_id', hasToken, async (req, res) => {
 
 //VIEW ONE RECORD
 //DELETE ONE RECORD
-router.delete("/:id", hasToken, async (req, res) => {
+router.delete("/:id", passport.authenticate('jwt', {session:false}), async (req, res) => {
     try {
         let recordDelete = await Record.findByIdAndDelete(req.params.id);
         if (recordDelete) {

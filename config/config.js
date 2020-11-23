@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 
-module.exports = (req, res, next) => {
+//Middleware to check if request has token
+let hasToken = (req, res, next) => {
     const token = req.header("x-auth-token");
     // console.log(token)
 
@@ -20,4 +21,9 @@ module.exports = (req, res, next) => {
             message: "Token is not valid.",
         }) //not authorized to view this
     }
+}
+
+
+module.exports = {
+    hasToken
 }

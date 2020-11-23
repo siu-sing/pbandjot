@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Workout = require("../model/workout.model")
-const hasToken = require("../config/config.js");
+const {hasToken} = require("../config/config.js");
 
 //CREATE WORKOUT - private access
 router.post('/', hasToken, async (req, res) => {

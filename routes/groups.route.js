@@ -5,7 +5,7 @@ const Record = require("../model/record.model");
 const Group = require("../model/group.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const hasToken = require("../config/config.js");
+const {hasToken} = require("../config/config.js");
 const mongoose = require("mongoose");
 const { findByIdAndUpdate } = require("../model/user.model");
 
@@ -73,7 +73,7 @@ router.post('/workouts', hasToken, async (req, res) => {
         prescribed_female,
     } = req.body
     let owner = req.user.id;
-    let groupId = req.body.group_id;
+    let groupId = req.body.group;
 
     try {
 
@@ -103,6 +103,24 @@ router.post('/workouts', hasToken, async (req, res) => {
         })
     }
 
+});
+
+// ADD WORKOUT TO GROUP
+router.post('/workouts/:workout_id', hasToken, async (req, res) => {
+    try {
+        let groupId = req.body.group;
+        let group = await Group.findByIdAndUpdate(groupId,{
+            $push: {group_workouts: req.params.workout_id}
+        })
+        res.status(201).json({
+            message: "Workout added to group successfully",
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Unable to add workout to group."
+        })
+    }
 });
 
 
