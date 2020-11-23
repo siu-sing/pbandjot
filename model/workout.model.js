@@ -15,9 +15,17 @@ const workoutSchema = new mongoose.Schema({
     prescribed_male: Number,
     prescribed_female: Number,
     owner: {
-        // type: String,
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
+    },
+    privacy: {
+        type: String,
+        enum:["public", "group", "personal"],
+        default: "personal"
+    },
+    group: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Group"
     },
     workout_image_path:String,
 }, {

@@ -199,7 +199,6 @@ router.get('/allworkouts/:workout_id', passport.authenticate('jwt', {session:fal
     }
 });
 
-
 //VIEW ONE RECORD
 //DELETE ONE RECORD
 router.delete("/:id", passport.authenticate('jwt', {session:false}), async (req, res) => {
